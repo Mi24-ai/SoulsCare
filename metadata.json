@@ -1,0 +1,6 @@
+{
+  "name": "Souls Care",
+  "description": "Ekosistem kesehatan mental terjangkau untuk Gen Z dengan AI companion, private chat, konseling profesional sliding-scale, asuransi mikro, tabungan berbasis tujuan, dan penurunan stres.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
