@@ -119,7 +119,7 @@ export const ConsultationRoomModal: React.FC<ConsultationRoomModalProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-bold text-sm sm:text-base font-['Outfit',sans-serif]">{counselor.name}</h3>
-                <span className="flex items-center gap-1 text-[10px] bg-teal-500/20 text-teal-300 px-2 py-0.5 rounded-full border border-teal-500/30">
+                <span className="flex items-center gap-1 text-[11px] bg-teal-500/20 text-teal-300 px-2 py-0.5 rounded-full border border-teal-500/30">
                   <ShieldCheck className="w-3 h-3" /> Terverifikasi HIMPSI
                 </span>
               </div>
@@ -176,7 +176,7 @@ export const ConsultationRoomModal: React.FC<ConsultationRoomModalProps> = ({
                           Kamu
                         </div>
                         <p className="text-xs text-slate-300 font-medium">Kamera Aktif (Koneksi HD)</p>
-                        <span className="text-[10px] text-teal-400 mt-1">Sesi Terenkripsi End-to-End</span>
+                        <span className="text-[11px] text-teal-400 mt-1">Sesi Terenkripsi End-to-End</span>
                       </div>
                     ) : (
                       <div className="flex flex-col items-center justify-center text-slate-500">
@@ -197,7 +197,7 @@ export const ConsultationRoomModal: React.FC<ConsultationRoomModalProps> = ({
                     <h4 className="text-xs font-bold uppercase tracking-wider text-teal-400 flex items-center gap-1.5">
                       <FileText className="w-4 h-4" /> Catatan Pribadi Selama Konseling
                     </h4>
-                    <span className="text-[10px] text-slate-400">Hanya tersimpan di perangkatmu</span>
+                    <span className="text-[11px] text-slate-400">Hanya tersimpan di perangkatmu</span>
                   </div>
                   <textarea
                     value={userNotes}
@@ -243,7 +243,7 @@ export const ConsultationRoomModal: React.FC<ConsultationRoomModalProps> = ({
                 <button
                   id="finish-consultation-btn"
                   onClick={handleFinishSession}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-md shadow-rose-600/30 transition-all hover:scale-102"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-md shadow-rose-600/30 transition-all hover:scale-[1.02]"
                 >
                   <PhoneOff className="w-4 h-4" />
                   <span>Selesaikan Sesi</span>
@@ -258,7 +258,7 @@ export const ConsultationRoomModal: React.FC<ConsultationRoomModalProps> = ({
                   <MessageSquare className="w-4 h-4 text-teal-400" />
                   <span className="text-xs font-bold text-slate-200">Chat Ruang Konseling</span>
                 </div>
-                <span className="flex items-center gap-1 text-[10px] text-slate-400">
+                <span className="flex items-center gap-1 text-[11px] text-slate-400">
                   <Lock className="w-3 h-3 text-teal-400" /> Terenkripsi
                 </span>
               </div>
@@ -269,7 +269,7 @@ export const ConsultationRoomModal: React.FC<ConsultationRoomModalProps> = ({
                   const isMe = msg.sender === 'Kamu';
                   return (
                     <div key={idx} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
-                      <span className="text-[10px] text-slate-400 mb-0.5">{msg.sender} • {msg.time}</span>
+                      <span className="text-[11px] text-slate-400 mb-0.5">{msg.sender} • {msg.time}</span>
                       <div
                         className={`p-3 rounded-2xl text-xs leading-relaxed max-w-[90%] ${
                           isMe
@@ -346,7 +346,7 @@ export const ConsultationRoomModal: React.FC<ConsultationRoomModalProps> = ({
               <div className="flex gap-3 justify-center">
                 <button
                   onClick={onClose}
-                  className="px-6 py-3 bg-teal-500 hover:bg-teal-600 text-slate-950 font-bold text-xs rounded-xl shadow-lg shadow-teal-500/20 transition-all hover:scale-102 cursor-pointer"
+                  className="px-6 py-3 bg-teal-500 hover:bg-teal-600 text-slate-950 font-bold text-xs rounded-xl shadow-lg shadow-teal-500/20 transition-all hover:scale-[1.02] cursor-pointer"
                 >
                   Kembali ke Dashboard Souls Care
                 </button>
