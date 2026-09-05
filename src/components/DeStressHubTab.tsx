@@ -306,7 +306,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
       <div className="flex items-start gap-3 px-5 py-4 rounded-[28px] bg-gradient-to-r from-indigo-50 via-white to-white border border-indigo-100">
         <div className="p-2 rounded-full bg-white text-indigo-500 shadow-2xs shrink-0">{greeting.icon}</div>
         <div>
-          <p className="text-sm font-black text-indigo-950">{greeting.text}.</p>
+          <p className="text-sm font-bold text-indigo-950">{greeting.text}.</p>
           <p className="text-xs font-medium text-indigo-500 mt-0.5 leading-relaxed">{supportLine}</p>
         </div>
       </div>
@@ -318,7 +318,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
             key={tab.id}
             id={`subtab-${tab.id}`}
             onClick={() => setActiveSubTab(tab.id)}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-black transition-all whitespace-nowrap cursor-pointer ${
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
               activeSubTab === tab.id ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200' : 'text-indigo-950 hover:bg-indigo-50'
             }`}
           >
@@ -338,7 +338,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                 <button
                   key={p}
                   onClick={() => { setBreathingPattern(p); resetBreathing(); }}
-                  className={`px-4 py-2 rounded-full text-xs font-black transition-all cursor-pointer ${
+                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                     breathingPattern === p ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200' : 'text-indigo-900 hover:bg-white'
                   }`}
                 >
@@ -382,10 +382,10 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                     : 'bg-gradient-to-br from-indigo-800 to-slate-800 scale-90'
                 }`}
               >
-                <span className="text-xs uppercase font-black tracking-widest text-indigo-100 mb-1">
+                <span className="text-xs uppercase font-bold tracking-widest text-indigo-100 mb-1">
                   {isBreathingActive ? breathPhase : 'Siap Mulai'}
                 </span>
-                <span className="text-4xl sm:text-5xl font-black font-mono tracking-tight">
+                <span className="text-4xl sm:text-5xl font-bold font-mono tracking-tight">
                   {isBreathingActive ? phaseSecondsLeft : '✨'}
                 </span>
                 <span className="text-xs text-white/90 mt-1 font-bold">
@@ -414,7 +414,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
               <button
                 id="toggle-breathing-btn"
                 onClick={toggleBreathing}
-                className="px-8 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-sm shadow-xl shadow-indigo-200 transition-all hover:scale-105 flex items-center gap-2 cursor-pointer"
+                className="px-8 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-xl shadow-indigo-200 transition-all hover:scale-[1.02] flex items-center gap-2 cursor-pointer"
               >
                 {isBreathingActive ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 fill-white" />}
                 <span>{isBreathingActive ? 'Jeda Latihan' : 'Mulai Sekarang'}</span>
@@ -437,10 +437,10 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
       {activeSubTab === 'grounding' && (
         <div className="bg-white rounded-[40px] border-2 border-amber-50 p-6 sm:p-10 shadow-xl shadow-amber-100/50 space-y-6 animate-in fade-in">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-black text-stone-900">
+            <h2 className="text-2xl sm:text-3xl font-bold text-indigo-950">
               Kembali ke momen ini, lewat panca indera
             </h2>
-            <p className="text-xs sm:text-sm font-medium text-stone-500 mt-1.5 max-w-xl">
+            <p className="text-xs sm:text-sm font-medium text-indigo-50/600 mt-1.5 max-w-xl">
               Saat pikiran terasa berlarian atau cemas menumpuk, teknik ini membantu tubuhmu perlahan kembali tenang — satu indera pada satu waktu.
             </p>
           </div>
@@ -455,15 +455,15 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                     onClick={() => setGroundingStep(idx)}
                     className={`p-3.5 rounded-2xl border-2 text-center transition-all cursor-pointer ${
                       groundingStep === idx
-                        ? 'border-amber-500 bg-amber-50/80 text-stone-900 ring-2 ring-amber-200 font-black shadow-sm'
+                        ? 'border-amber-500 bg-amber-50/80 text-indigo-950 ring-2 ring-amber-200 font-bold shadow-sm'
                         : groundingInputs[idx]
                         ? 'border-emerald-300 bg-emerald-50 text-emerald-950 font-bold'
-                        : 'border-stone-100 text-stone-700 hover:bg-stone-50'
+                        : 'border-indigo-100 text-indigo-800 hover:bg-indigo-50/60'
                     }`}
                   >
                     <span className="text-2xl block mb-1">{p.icon}</span>
-                    <span className="text-xs font-black block">{p.count} Hal</span>
-                    <span className="text-[10px] font-bold text-stone-400 truncate block">{p.sense.split(' ')[0]}</span>
+                    <span className="text-xs font-bold block">{p.count} Hal</span>
+                    <span className="text-[11px] font-bold text-indigo-300 truncate block">{p.sense.split(' ')[0]}</span>
                   </button>
                 ))}
               </div>
@@ -473,10 +473,10 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                 <div className="flex items-center gap-4">
                   <span className="text-4xl">{groundingPrompts[groundingStep].icon}</span>
                   <div>
-                    <h3 className="text-lg font-black text-stone-900">
+                    <h3 className="text-lg font-bold text-indigo-950">
                       Langkah {groundingStep + 1}: {groundingPrompts[groundingStep].count} Hal {groundingPrompts[groundingStep].sense}
                     </h3>
-                    <p className="text-xs font-bold text-stone-600 mt-0.5 leading-relaxed">
+                    <p className="text-xs font-bold text-indigo-500 mt-0.5 leading-relaxed">
                       {groundingPrompts[groundingStep].desc}
                     </p>
                   </div>
@@ -491,14 +491,14 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                   }}
                   placeholder="Ketik apa yang kamu amati di sini (atau cukup rasakan dalam hening)..."
                   rows={3}
-                  className="w-full bg-white rounded-2xl p-4 text-xs sm:text-sm font-medium text-stone-900 placeholder-stone-300 border-2 border-amber-100 focus:outline-hidden focus:border-amber-500 transition-all"
+                  className="w-full bg-white rounded-2xl p-4 text-xs sm:text-sm font-medium text-indigo-950 placeholder-indigo-300 border-2 border-amber-100 focus:outline-hidden focus:border-amber-500 transition-all"
                 />
 
                 <div className="flex justify-between items-center pt-2">
                   <button
                     disabled={groundingStep === 0}
                     onClick={() => setGroundingStep((s) => s - 1)}
-                    className="px-5 py-2.5 rounded-2xl text-xs font-black text-stone-700 bg-white hover:bg-stone-50 disabled:opacity-30 border border-stone-100 cursor-pointer"
+                    className="px-5 py-2.5 rounded-2xl text-xs font-bold text-indigo-800 bg-white hover:bg-indigo-50/60 disabled:opacity-30 border border-indigo-100 cursor-pointer"
                   >
                     ← Sebelumnya
                   </button>
@@ -509,7 +509,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                         soundEngine.playInhaleChime();
                         setGroundingStep((s) => s + 1);
                       }}
-                      className="px-6 py-2.5 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-black shadow-lg shadow-amber-200 transition-all cursor-pointer"
+                      className="px-6 py-2.5 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-lg shadow-amber-200 transition-all cursor-pointer"
                     >
                       Lanjut ke Langkah {groundingStep + 2} →
                     </button>
@@ -520,7 +520,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                         confetti({ particleCount: 60, spread: 70 });
                         setGroundingFinished(true);
                       }}
-                      className="px-6 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black shadow-lg shadow-emerald-200 transition-all cursor-pointer"
+                      className="px-6 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-lg shadow-emerald-200 transition-all cursor-pointer"
                     >
                       Selesai ✨
                     </button>
@@ -531,7 +531,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
           ) : (
             <div className="p-8 sm:p-10 bg-gradient-to-br from-emerald-50 to-amber-50 rounded-[32px] border-2 border-emerald-100 text-center space-y-4">
               <span className="text-4xl block">🌿</span>
-              <p className="text-sm sm:text-base font-black text-stone-900 max-w-md mx-auto leading-relaxed">
+              <p className="text-sm sm:text-base font-bold text-indigo-950 max-w-md mx-auto leading-relaxed">
                 {closingLine}
               </p>
               <button
@@ -540,7 +540,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                   setGroundingStep(0);
                   setGroundingInputs(['', '', '', '', '']);
                 }}
-                className="px-5 py-2.5 rounded-2xl bg-white hover:bg-stone-50 text-stone-700 text-xs font-black border border-stone-200 cursor-pointer"
+                className="px-5 py-2.5 rounded-2xl bg-white hover:bg-indigo-50/60 text-indigo-800 text-xs font-bold border border-indigo-100 cursor-pointer"
               >
                 Ulangi Latihan
               </button>
@@ -553,7 +553,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
       {activeSubTab === 'sounds' && (
         <div className="bg-white rounded-[40px] border-2 border-sky-50 p-6 sm:p-10 shadow-xl shadow-sky-100/50 space-y-6 animate-in fade-in">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
               Racik suara yang paling menenangkan telingamu
             </h2>
             <p className="text-xs sm:text-sm font-medium text-slate-500 mt-1.5 max-w-xl">
@@ -571,7 +571,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
               <button
                 key={preset.label}
                 onClick={() => applySoundPreset(...preset.vals)}
-                className="px-4 py-2 rounded-full text-xs font-black text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 transition-all cursor-pointer"
+                className="px-4 py-2 rounded-full text-xs font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 transition-all cursor-pointer"
               >
                 {preset.label}
               </button>
@@ -582,11 +582,11 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
             {/* Rain */}
             <div className="p-6 rounded-[32px] bg-white border-2 border-sky-100 shadow-md shadow-sky-100/30 space-y-4">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-slate-900 font-black text-sm">
+                <div className="flex items-center gap-2 text-slate-900 font-bold text-sm">
                   <CloudRain className="w-5 h-5 text-sky-600" />
                   <span>Hujan Teduh</span>
                 </div>
-                <span className="text-xs font-mono font-black text-sky-600">{rainVol}%</span>
+                <span className="text-xs font-mono font-bold text-sky-600">{rainVol}%</span>
               </div>
               <input
                 type="range"
@@ -597,7 +597,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                 aria-label="Volume suara hujan"
                 className="w-full accent-sky-600 cursor-pointer"
               />
-              <p className="text-[11px] font-medium text-slate-400">
+              <p className="text-xs font-medium text-slate-400">
                 Rintik lembut dengan nuansa pink noise untuk relaksasi.
               </p>
             </div>
@@ -605,11 +605,11 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
             {/* Ocean */}
             <div className="p-6 rounded-[32px] bg-white border-2 border-sky-100 shadow-md shadow-sky-100/30 space-y-4">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-slate-900 font-black text-sm">
+                <div className="flex items-center gap-2 text-slate-900 font-bold text-sm">
                   <Waves className="w-5 h-5 text-teal-600" />
                   <span>Ombak Lautan</span>
                 </div>
-                <span className="text-xs font-mono font-black text-teal-600">{oceanVol}%</span>
+                <span className="text-xs font-mono font-bold text-teal-600">{oceanVol}%</span>
               </div>
               <input
                 type="range"
@@ -620,7 +620,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                 aria-label="Volume suara ombak"
                 className="w-full accent-teal-600 cursor-pointer"
               />
-              <p className="text-[11px] font-medium text-slate-400">
+              <p className="text-xs font-medium text-slate-400">
                 Deburan periodik yang bisa membantu menyelaraskan ritme napasmu.
               </p>
             </div>
@@ -628,11 +628,11 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
             {/* Alpha Drone */}
             <div className="p-6 rounded-[32px] bg-white border-2 border-sky-100 shadow-md shadow-sky-100/30 space-y-4">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-slate-900 font-black text-sm">
+                <div className="flex items-center gap-2 text-slate-900 font-bold text-sm">
                   <Music className="w-5 h-5 text-indigo-600" />
                   <span>Alpha Wave 432Hz</span>
                 </div>
-                <span className="text-xs font-mono font-black text-indigo-600">{droneVol}%</span>
+                <span className="text-xs font-mono font-bold text-indigo-600">{droneVol}%</span>
               </div>
               <input
                 type="range"
@@ -643,7 +643,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                 aria-label="Volume gelombang alpha"
                 className="w-full accent-indigo-600 cursor-pointer"
               />
-              <p className="text-[11px] font-medium text-slate-400">
+              <p className="text-xs font-medium text-slate-400">
                 Drone lembut yang cocok didengar saat kamu perlu fokus tenang.
               </p>
             </div>
@@ -655,7 +655,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                 applySoundPreset(0, 0, 0);
                 soundEngine.stopAll();
               }}
-              className="px-5 py-2.5 rounded-2xl text-xs font-black text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-100 flex items-center gap-1.5 cursor-pointer"
+              className="px-5 py-2.5 rounded-2xl text-xs font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-100 flex items-center gap-1.5 cursor-pointer"
             >
               <VolumeX className="w-4 h-4" />
               <span>Hentikan Semua Suara</span>
@@ -671,10 +671,10 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
           <div className="bg-white rounded-[40px] border-2 border-rose-50 p-6 sm:p-8 shadow-xl shadow-rose-100/40 space-y-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <h2 className="text-xl font-black text-stone-900">
+                <h2 className="text-xl font-bold text-indigo-950">
                   Ruang jujur untuk dirimu
                 </h2>
-                <p className="text-xs font-bold text-stone-400">Ditulis dengan katamu sendiri, ditemani refleksi dari Aria</p>
+                <p className="text-xs font-bold text-indigo-300">Ditulis dengan katamu sendiri, ditemani refleksi dari Aria</p>
               </div>
 
               {/* Mood picker */}
@@ -683,10 +683,10 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                   <button
                     key={m}
                     onClick={() => setJournalMood(m.split(' ')[1])}
-                    className={`px-3 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                       journalMood === m.split(' ')[1]
                         ? 'bg-rose-100 text-rose-950 border border-rose-300 shadow-2xs'
-                        : 'bg-stone-50 text-stone-700 hover:bg-stone-100'
+                        : 'bg-indigo-50/60 text-indigo-800 hover:bg-indigo-50'
                     }`}
                   >
                     {m}
@@ -697,7 +697,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
 
             {/* Gratitude Prompt */}
             <div>
-              <label className="text-xs font-black text-stone-900 block mb-1.5">
+              <label className="text-xs font-bold text-indigo-950 block mb-1.5">
                 Hal kecil yang aku syukuri hari ini
               </label>
               <input
@@ -705,13 +705,13 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                 value={journalGratitude}
                 onChange={(e) => setJournalGratitude(e.target.value)}
                 placeholder="Misal: kopi pagi, telepon dari ibu, tugas selesai tepat waktu..."
-                className="w-full bg-stone-50 rounded-2xl p-3 text-xs sm:text-sm font-medium text-stone-900 border-2 border-stone-100 focus:outline-hidden focus:border-rose-400 focus:bg-white"
+                className="w-full bg-indigo-50/60 rounded-2xl p-3 text-xs sm:text-sm font-medium text-indigo-950 border-2 border-indigo-100 focus:outline-hidden focus:border-rose-400 focus:bg-white"
               />
             </div>
 
             {/* Main Journal Content */}
             <div>
-              <label className="text-xs font-black text-stone-900 block mb-1.5">
+              <label className="text-xs font-bold text-indigo-950 block mb-1.5">
                 Apa pun yang sedang kamu rasakan
               </label>
               <textarea
@@ -719,7 +719,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                 onChange={(e) => setJournalContent(e.target.value)}
                 placeholder="Tuliskan apa saja tanpa sensor. Tidak ada yang salah di sini..."
                 rows={4}
-                className="w-full bg-stone-50 rounded-2xl p-3.5 text-xs sm:text-sm font-medium text-stone-900 border-2 border-stone-100 focus:outline-hidden focus:border-rose-400 focus:bg-white resize-none"
+                className="w-full bg-indigo-50/60 rounded-2xl p-3.5 text-xs sm:text-sm font-medium text-indigo-950 border-2 border-indigo-100 focus:outline-hidden focus:border-rose-400 focus:bg-white resize-none"
               />
             </div>
 
@@ -728,7 +728,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                 id="save-journal-btn"
                 onClick={handleSaveJournal}
                 disabled={!journalContent.trim() || isAnalyzingJournal}
-                className="px-6 py-3 rounded-2xl bg-rose-600 hover:bg-rose-700 disabled:opacity-40 text-white font-black text-xs shadow-lg shadow-rose-200 flex items-center gap-2 transition-all hover:scale-105 cursor-pointer"
+                className="px-6 py-3 rounded-2xl bg-rose-600 hover:bg-rose-700 disabled:opacity-40 text-white font-bold text-xs shadow-lg shadow-rose-200 flex items-center gap-2 transition-all hover:scale-[1.02] cursor-pointer"
               >
                 {isAnalyzingJournal ? <Sparkles className="w-4 h-4 animate-pulse" /> : <Send className="w-4 h-4" />}
                 <span>{isAnalyzingJournal ? 'Menganalisis dengan lembut...' : 'Simpan & Dapatkan Refleksi'}</span>
@@ -738,17 +738,17 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
 
           {/* Past Entries Log */}
           <div className="space-y-4">
-            <h3 className="text-xs font-black text-stone-400 uppercase tracking-wider px-1">
+            <h3 className="text-xs font-bold text-indigo-300 uppercase tracking-wider px-1">
               Riwayat jurnalmu
             </h3>
             {savedEntries.map((entry) => (
               <div
                 key={entry.id}
-                className="bg-white rounded-[32px] border-2 border-stone-50 p-6 shadow-lg shadow-stone-100/40 space-y-3"
+                className="bg-white rounded-[32px] border-2 border-indigo-50/60 p-6 shadow-lg shadow-indigo-100/40 space-y-3"
               >
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-black text-stone-900">{entry.date}</span>
-                  <span className="px-3 py-1 rounded-full bg-rose-50 text-rose-900 font-black border border-rose-200">
+                  <span className="font-bold text-indigo-950">{entry.date}</span>
+                  <span className="px-3 py-1 rounded-full bg-rose-50 text-rose-900 font-bold border border-rose-200">
                     {entry.mood}
                   </span>
                 </div>
@@ -759,18 +759,18 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                   </p>
                 )}
 
-                <p className="text-xs sm:text-sm text-stone-900 font-medium leading-relaxed whitespace-pre-wrap">
+                <p className="text-xs sm:text-sm text-indigo-950 font-medium leading-relaxed whitespace-pre-wrap">
                   {entry.content}
                 </p>
 
                 {entry.aiReflection && (
                   <div className="mt-3 p-5 bg-gradient-to-br from-rose-50 to-amber-50 rounded-2xl border-2 border-rose-100 text-xs space-y-3">
-                    <div className="flex items-center gap-1.5 font-black text-stone-900">
+                    <div className="flex items-center gap-1.5 font-bold text-indigo-950">
                       <Feather className="w-4 h-4 text-rose-500" />
                       <span>Refleksi dari Aria</span>
                     </div>
-                    <p className="text-stone-700 font-medium">{entry.aiReflection.summary}</p>
-                    <div className="text-sm text-stone-900 font-serif italic bg-white p-4 rounded-xl border border-rose-100 shadow-2xs leading-relaxed">
+                    <p className="text-indigo-800 font-medium">{entry.aiReflection.summary}</p>
+                    <div className="text-sm text-indigo-950 font-serif italic bg-white p-4 rounded-xl border border-rose-100 shadow-2xs leading-relaxed">
                       "{entry.aiReflection.affirmation}"
                     </div>
                   </div>
@@ -785,11 +785,11 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
       {activeSubTab === 'activities' && (
         <div className="space-y-6 animate-in fade-in duration-300">
           {/* Intro Banner */}
-          <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-[32px] p-6 border-2 border-orange-100 text-center">
-            <h2 className="text-xl font-black text-stone-900">
+          <div className="bg-gradient-to-br from-violet-50 to-amber-50 rounded-[32px] p-6 border-2 border-violet-100 text-center">
+            <h2 className="text-xl font-bold text-indigo-950">
               Kadang jiwa butuh gerak, bukan cuma diam
             </h2>
-            <p className="text-xs text-stone-600 font-medium mt-1.5 max-w-xl mx-auto leading-relaxed">
+            <p className="text-xs text-indigo-500 font-medium mt-1.5 max-w-xl mx-auto leading-relaxed">
               Napas dan jurnal penting, tapi keluar rumah dan bergerak juga membantu. Pilih kategori yang paling menarik buatmu sekarang.
             </p>
           </div>
@@ -801,10 +801,10 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                 key={cat.id}
                 id={`activity-category-${cat.id}`}
                 onClick={() => setActiveActivityCategory(cat.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-black transition-all whitespace-nowrap cursor-pointer border-2 ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-bold transition-all whitespace-nowrap cursor-pointer border-2 ${
                   activeActivityCategory === cat.id
-                    ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-200'
-                    : 'bg-white text-stone-700 border-stone-100 hover:bg-orange-50'
+                    ? 'bg-violet-600 text-white border-violet-600 shadow-md shadow-violet-200'
+                    : 'bg-white text-indigo-800 border-indigo-100 hover:bg-violet-50'
                 }`}
               >
                 {activityCategoryIcons[cat.id]}
@@ -818,20 +818,20 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
             .filter((cat) => cat.id === activeActivityCategory)
             .map((cat) => (
               <div key={cat.id} className="space-y-5">
-                <div className="bg-white rounded-[40px] border-2 border-orange-50 p-6 sm:p-8 shadow-xl shadow-orange-100/50">
+                <div className="bg-white rounded-[40px] border-2 border-violet-50 p-6 sm:p-8 shadow-xl shadow-violet-100/50">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="p-2.5 rounded-2xl bg-orange-50 text-orange-600">
+                    <div className="p-2.5 rounded-2xl bg-violet-50 text-violet-600">
                       {activityCategoryIcons[cat.id]}
                     </div>
-                    <h3 className="text-lg font-black text-stone-900">{cat.name}</h3>
+                    <h3 className="text-lg font-bold text-indigo-950">{cat.name}</h3>
                   </div>
-                  <p className="text-xs font-bold text-orange-500">{cat.tagline}</p>
-                  <p className="text-xs text-stone-600 font-medium mt-2 leading-relaxed">{cat.benefit}</p>
+                  <p className="text-xs font-bold text-violet-500">{cat.tagline}</p>
+                  <p className="text-xs text-indigo-500 font-medium mt-2 leading-relaxed">{cat.benefit}</p>
                 </div>
 
                 {/* Places */}
                 <div>
-                  <h4 className="text-xs font-black text-stone-400 uppercase tracking-wider px-1 mb-3">
+                  <h4 className="text-xs font-bold text-indigo-300 uppercase tracking-wider px-1 mb-3">
                     Saran Tempat
                   </h4>
                   <div className="grid sm:grid-cols-2 gap-4">
@@ -839,26 +839,26 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                       <div
                         key={place.id}
                         id={`activity-place-${place.id}`}
-                        className="p-5 rounded-[28px] bg-white border-2 border-orange-50 shadow-md shadow-orange-100/30 space-y-2.5"
+                        className="p-5 rounded-[28px] bg-white border-2 border-violet-50 shadow-md shadow-violet-100/30 space-y-2.5"
                       >
                         <div className="flex items-start justify-between gap-2">
-                          <h5 className="text-sm font-black text-stone-900">{place.name}</h5>
+                          <h5 className="text-sm font-bold text-indigo-950">{place.name}</h5>
                           {place.priceRange && (
-                            <span className="text-[10px] font-black text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-full px-2 py-1 whitespace-nowrap">
+                            <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-full px-2 py-1 whitespace-nowrap">
                               {place.priceRange}
                             </span>
                           )}
                         </div>
-                        <div className="flex items-center gap-1.5 text-[11px] font-bold text-orange-500">
+                        <div className="flex items-center gap-1.5 text-xs font-bold text-violet-500">
                           <MapPin className="w-3.5 h-3.5" />
                           <span>{place.location}</span>
                         </div>
-                        <p className="text-xs text-stone-600 font-medium leading-relaxed">{place.description}</p>
+                        <p className="text-xs text-indigo-500 font-medium leading-relaxed">{place.description}</p>
                         <div className="flex flex-wrap gap-1.5 pt-1">
                           {place.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="flex items-center gap-1 text-[10px] font-black text-orange-700 bg-orange-50 border border-orange-100 rounded-full px-2 py-0.5"
+                              className="flex items-center gap-1 text-[11px] font-bold text-violet-700 bg-violet-50 border border-violet-100 rounded-full px-2 py-0.5"
                             >
                               <Tag className="w-2.5 h-2.5" />
                               {tag}
@@ -873,7 +873,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                 {/* Exercises (gym only) */}
                 {cat.exercises && (
                   <div>
-                    <h4 className="text-xs font-black text-stone-400 uppercase tracking-wider px-1 mb-3">
+                    <h4 className="text-xs font-bold text-indigo-300 uppercase tracking-wider px-1 mb-3">
                       Rekomendasi Gerakan
                     </h4>
                     <div className="space-y-3">
@@ -881,20 +881,20 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
                         <div
                           key={ex.id}
                           id={`activity-exercise-${ex.id}`}
-                          className="p-4 rounded-2xl bg-orange-50/50 border border-orange-100 flex items-start gap-3"
+                          className="p-4 rounded-2xl bg-violet-50/50 border border-violet-100 flex items-start gap-3"
                         >
-                          <div className="p-2 rounded-xl bg-white text-orange-600 shadow-2xs">
+                          <div className="p-2 rounded-xl bg-white text-violet-600 shadow-2xs">
                             <Dumbbell className="w-4 h-4" />
                           </div>
                           <div className="flex-1">
                             <div className="flex items-center justify-between gap-2">
-                              <span className="text-xs font-black text-stone-900">{ex.name}</span>
-                              <span className="flex items-center gap-1 text-[10px] font-black text-orange-500 whitespace-nowrap">
+                              <span className="text-xs font-bold text-indigo-950">{ex.name}</span>
+                              <span className="flex items-center gap-1 text-[11px] font-bold text-violet-500 whitespace-nowrap">
                                 <Clock className="w-3 h-3" />
                                 {ex.duration}
                               </span>
                             </div>
-                            <p className="text-[11px] text-stone-600 font-medium mt-0.5 leading-relaxed">{ex.description}</p>
+                            <p className="text-xs text-indigo-500 font-medium mt-0.5 leading-relaxed">{ex.description}</p>
                           </div>
                         </div>
                       ))}
@@ -904,7 +904,7 @@ export const DeStressHubTab: React.FC<DeStressHubTabProps> = ({ initialSubTab = 
 
                 {/* Tips */}
                 <div className="p-5 sm:p-6 rounded-[28px] bg-amber-50/60 border-2 border-amber-100">
-                  <h4 className="text-xs font-black text-amber-950 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                  <h4 className="text-xs font-bold text-amber-950 uppercase tracking-wider mb-3 flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-amber-600" />
                     Tips Ringan
                   </h4>
