@@ -57,7 +57,7 @@ export const CrisisModal: React.FC<CrisisModalProps> = ({ isOpen, onClose, onOpe
               <ShieldAlert className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h2 className="text-xl font-black font-['Outfit',sans-serif]">Ruang Aman Darurat & Bantuan Krisis</h2>
+              <h2 className="text-xl font-bold font-['Outfit',sans-serif]">Ruang Aman Darurat & Bantuan Krisis</h2>
               <p className="text-xs text-rose-100 mt-0.5 font-medium">Kamu tidak sendirian. Rasa sakit ini bisa dilewati bersama.</p>
             </div>
           </div>
@@ -75,7 +75,7 @@ export const CrisisModal: React.FC<CrisisModalProps> = ({ isOpen, onClose, onOpe
         <div className="p-6 sm:p-7 overflow-y-auto space-y-6">
           {/* Quick Immediate Grounding Prompt */}
           <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-3xl p-5 border-2 border-amber-200 shadow-sm">
-            <div className="flex items-center gap-2 text-amber-950 font-black text-sm mb-1.5">
+            <div className="flex items-center gap-2 text-amber-950 font-bold text-sm mb-1.5">
               <Sparkles className="w-4 h-4 text-amber-600" />
               <span>Pertolongan Pertama Saat Terasa Terlalu Sesak</span>
             </div>
@@ -90,7 +90,7 @@ export const CrisisModal: React.FC<CrisisModalProps> = ({ isOpen, onClose, onOpe
                   onClose();
                   onOpenBreathing();
                 }}
-                className="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-indigo-950 text-xs font-black rounded-2xl shadow-md shadow-amber-900/10 transition-all hover:scale-105 cursor-pointer"
+                className="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-indigo-950 text-xs font-bold rounded-2xl shadow-md shadow-amber-900/10 transition-all hover:scale-[1.02] cursor-pointer"
               >
                 Mulai Latihan Napas Penenang
               </button>
@@ -99,7 +99,7 @@ export const CrisisModal: React.FC<CrisisModalProps> = ({ isOpen, onClose, onOpe
 
           {/* Hotline Numbers */}
           <div>
-            <h3 className="text-xs font-black uppercase tracking-wider text-indigo-400 mb-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-indigo-400 mb-3">
               Kontak Bantuan Profesional Bebas Pulsa / Terjangkau 24 Jam
             </h3>
             <div className="space-y-3">
@@ -111,7 +111,7 @@ export const CrisisModal: React.FC<CrisisModalProps> = ({ isOpen, onClose, onOpe
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <h4 className="text-sm font-black">{h.name}</h4>
+                      <h4 className="text-sm font-bold">{h.name}</h4>
                       <p className="text-xs opacity-90 font-medium mt-0.5">{h.desc}</p>
                     </div>
                     {h.type === 'link' ? (
@@ -119,7 +119,7 @@ export const CrisisModal: React.FC<CrisisModalProps> = ({ isOpen, onClose, onOpe
                         href={h.number} 
                         target="_blank" 
                         rel="noreferrer"
-                        className="flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white text-xs font-black rounded-2xl hover:bg-indigo-700 whitespace-nowrap shadow-sm"
+                        className="flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-2xl hover:bg-indigo-700 whitespace-nowrap shadow-sm"
                       >
                         <span>Buka Info</span>
                         <ExternalLink className="w-3.5 h-3.5" />
@@ -127,7 +127,7 @@ export const CrisisModal: React.FC<CrisisModalProps> = ({ isOpen, onClose, onOpe
                     ) : (
                       <a 
                         href={h.type === 'phone' ? `tel:${h.number}` : `https://wa.me/${h.number.replace(/[^0-9]/g, '')}`}
-                        className="flex items-center gap-1.5 px-4 py-2 bg-indigo-950 text-white text-xs font-black rounded-2xl hover:bg-indigo-900 whitespace-nowrap shadow-sm"
+                        className="flex items-center gap-1.5 px-4 py-2 bg-indigo-950 text-white text-xs font-bold rounded-2xl hover:bg-indigo-900 whitespace-nowrap shadow-sm"
                       >
                         <PhoneCall className="w-3.5 h-3.5" />
                         <span>{h.number}</span>
@@ -152,7 +152,7 @@ export const CrisisModal: React.FC<CrisisModalProps> = ({ isOpen, onClose, onOpe
           <button
             id="close-crisis-footer-btn"
             onClick={onClose}
-            className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black rounded-2xl shadow-md shadow-indigo-200 transition-all hover:scale-105 cursor-pointer"
+            className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-2xl shadow-md shadow-indigo-200 transition-all hover:scale-[1.02] cursor-pointer"
           >
             Tutup
           </button>
