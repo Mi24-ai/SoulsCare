@@ -116,11 +116,11 @@ export const CounselingTab: React.FC<CounselingTabProps> = ({
       <div className="bg-gradient-to-br from-indigo-500 via-purple-600 to-indigo-700 rounded-[40px] text-white p-6 sm:p-10 shadow-xl shadow-indigo-200/50 relative overflow-hidden">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs font-black uppercase tracking-widest text-indigo-100">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold uppercase tracking-widest text-indigo-100">
               <ShieldCheck className="w-4 h-4 text-emerald-300" />
               <span>100% Psikolog & Psikiater Berlisensi HIMPSI / Kemenkes</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight">
               Konseling Profesional Terjangkau Tanpa Tabu
             </h1>
             <p className="text-sm sm:text-base text-indigo-100/90 font-medium leading-relaxed">
@@ -130,14 +130,14 @@ export const CounselingTab: React.FC<CounselingTabProps> = ({
 
           {/* Active User Tier Pill & Action */}
           <div className="bg-white/15 rounded-3xl p-5 backdrop-blur-md border border-white/20 text-left shrink-0 shadow-lg">
-            <div className="text-[10px] text-indigo-100 uppercase font-black tracking-wider mb-2">
+            <div className="text-[11px] text-indigo-100 uppercase font-bold tracking-wider mb-2">
               Tier Subsidimu Saat Ini:
             </div>
             <div className="flex items-center gap-2 mb-3">
-              <span className={`px-3 py-1 rounded-full text-xs font-black ${activeTier.badgeColor} shadow-xs`}>
+              <span className={`px-3 py-1 rounded-full text-xs font-bold ${activeTier.badgeColor} shadow-xs`}>
                 {activeTier.tierName}
               </span>
-              <span className="text-xs font-black text-amber-300">
+              <span className="text-xs font-bold text-amber-300">
                 Hemat {activeTier.discountPercentage}%
               </span>
             </div>
@@ -170,11 +170,11 @@ export const CounselingTab: React.FC<CounselingTabProps> = ({
             <div>
               <div className="flex items-center gap-2 mb-0.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-ping" />
-                <span className="text-[11px] font-black text-emerald-950 uppercase tracking-wider">
+                <span className="text-xs font-bold text-emerald-950 uppercase tracking-wider">
                   Sesi Siap Dimulai
                 </span>
               </div>
-              <h4 className="font-black text-emerald-950 text-base">{activeSession.counselorName}</h4>
+              <h4 className="font-bold text-emerald-950 text-base">{activeSession.counselorName}</h4>
               <p className="text-xs font-bold text-emerald-800">
                 {activeSession.date} • {activeSession.timeSlot} ({activeSession.type})
               </p>
@@ -183,7 +183,7 @@ export const CounselingTab: React.FC<CounselingTabProps> = ({
           <button
             id="launch-active-session-btn"
             onClick={() => setConsultationRoomOpen(true)}
-            className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black shadow-lg shadow-indigo-200 flex items-center justify-center gap-2 transition-all hover:scale-105 cursor-pointer"
+            className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-lg shadow-indigo-200 flex items-center justify-center gap-2 transition-all hover:scale-[1.02] cursor-pointer"
           >
             <Video className="w-4 h-4 text-white" />
             <span>Masuk Ruang Konseling Live</span>
@@ -210,7 +210,7 @@ export const CounselingTab: React.FC<CounselingTabProps> = ({
             <button
               key={spec}
               onClick={() => setSelectedSpecialty(spec)}
-              className={`px-4 py-2 rounded-full text-xs font-black whitespace-nowrap transition-all cursor-pointer ${
+              className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                 selectedSpecialty === spec
                   ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200'
                   : 'bg-white text-indigo-950 hover:bg-indigo-50 border-2 border-indigo-100 shadow-2xs'
@@ -249,17 +249,17 @@ export const CounselingTab: React.FC<CounselingTabProps> = ({
 
                   <div className="flex-1 space-y-1">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] uppercase tracking-wider font-black text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200">
+                      <span className="text-[11px] uppercase tracking-wider font-bold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200">
                         {counselor.licenseNumber}
                       </span>
-                      <div className="flex items-center gap-1 text-amber-500 text-xs font-black">
+                      <div className="flex items-center gap-1 text-amber-500 text-xs font-bold">
                         <Star className="w-4 h-4 fill-amber-400" />
                         <span>{counselor.rating}</span>
                         <span className="text-indigo-300 font-bold">({counselor.reviewsCount})</span>
                       </div>
                     </div>
 
-                    <h3 className="text-lg font-black text-indigo-950 font-['Outfit',sans-serif] leading-snug">
+                    <h3 className="text-lg font-bold text-indigo-950 font-['Outfit',sans-serif] leading-snug">
                       {counselor.name}
                     </h3>
                     <p className="text-xs font-bold text-indigo-400">{counselor.title} • {counselor.experienceYears} thn exp</p>
@@ -282,7 +282,7 @@ export const CounselingTab: React.FC<CounselingTabProps> = ({
                   {counselor.specializations.map((tag, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1 rounded-full text-[11px] font-bold bg-[#F0F2FF] text-indigo-900 border border-indigo-100"
+                      className="px-3 py-1 rounded-full text-xs font-bold bg-[#F0F2FF] text-indigo-900 border border-indigo-100"
                     >
                       {tag}
                     </span>
@@ -293,11 +293,11 @@ export const CounselingTab: React.FC<CounselingTabProps> = ({
               {/* Footer: Dynamic Price & Booking Button */}
               <div className="mt-6 pt-4 border-t border-indigo-100 flex items-end justify-between gap-2">
                 <div>
-                  <div className="text-[10px] text-indigo-400 uppercase font-bold tracking-wider">
+                  <div className="text-[11px] text-indigo-400 uppercase font-bold tracking-wider">
                     Biaya per Sesi (50 Menit)
                   </div>
                   <div className="flex items-baseline gap-1.5">
-                    <span className="text-xl font-black text-indigo-950 font-mono">
+                    <span className="text-xl font-bold text-indigo-950 font-mono">
                       Rp {finalPrice.toLocaleString('id-ID')}
                     </span>
                     {hasDiscount && (
@@ -307,7 +307,7 @@ export const CounselingTab: React.FC<CounselingTabProps> = ({
                     )}
                   </div>
                   {hasDiscount && (
-                    <span className="text-[11px] text-emerald-600 font-black block">
+                    <span className="text-xs text-emerald-600 font-bold block">
                       Tersubsidi ({activeTier.tierName})
                     </span>
                   )}
@@ -316,7 +316,7 @@ export const CounselingTab: React.FC<CounselingTabProps> = ({
                 <button
                   id={`book-btn-${counselor.id}`}
                   onClick={() => handleStartBooking(counselor)}
-                  className="px-5 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black shadow-lg shadow-indigo-200 transition-all hover:scale-105 flex items-center gap-1.5 cursor-pointer"
+                  className="px-5 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-lg shadow-indigo-200 transition-all hover:scale-[1.02] flex items-center gap-1.5 cursor-pointer"
                 >
                   <Calendar className="w-4 h-4" />
                   <span>Jadwalkan Sesi</span>
@@ -373,7 +373,7 @@ export const CounselingTab: React.FC<CounselingTabProps> = ({
                         {f.icon}
                         <span>{f.type}</span>
                       </div>
-                      <p className="text-[10px] text-slate-500">{f.desc}</p>
+                      <p className="text-[11px] text-slate-500">{f.desc}</p>
                     </button>
                   ))}
                 </div>
@@ -416,7 +416,7 @@ export const CounselingTab: React.FC<CounselingTabProps> = ({
                     - Rp {(selectedCounselor.standardPrice - calculateFinalPrice(selectedCounselor.standardPrice)).toLocaleString('id-ID')} ({activeTier.discountPercentage}%)
                   </span>
                 </div>
-                <div className="pt-2 border-t border-slate-200 flex justify-between text-sm font-black text-slate-900">
+                <div className="pt-2 border-t border-slate-200 flex justify-between text-sm font-bold text-slate-900">
                   <span>Total yang Kamu Bayar:</span>
                   <span className="text-teal-700 font-mono">
                     Rp {calculateFinalPrice(selectedCounselor.standardPrice).toLocaleString('id-ID')}
