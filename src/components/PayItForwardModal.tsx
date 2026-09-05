@@ -57,16 +57,16 @@ export const PayItForwardModal: React.FC<PayItForwardModalProps> = ({
         className="bg-white rounded-[36px] shadow-2xl border-2 border-indigo-50 w-full max-w-lg overflow-hidden flex flex-col max-h-[92vh]"
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-pink-600 via-rose-600 to-purple-700 text-white p-6 sm:p-7 flex items-start justify-between">
+        <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white p-6 sm:p-7 flex items-start justify-between">
           <div className="flex items-center gap-3.5">
             <div className="p-3.5 bg-white/10 rounded-2xl border border-white/20">
               <Heart className="w-6 h-6 text-amber-300 fill-amber-300" />
             </div>
             <div>
-              <h2 className="text-xl font-black font-['Outfit',sans-serif]">
+              <h2 className="text-xl font-bold font-['Outfit',sans-serif]">
                 Pay-It-Forward: Pool Subsidi Silang
               </h2>
-              <p className="text-xs text-rose-100 mt-0.5 font-medium">
+              <p className="text-xs text-indigo-100 mt-0.5 font-medium">
                 Gotong royong kesehatan jiwa sesama generasi muda Indonesia.
               </p>
             </div>
@@ -83,22 +83,22 @@ export const PayItForwardModal: React.FC<PayItForwardModalProps> = ({
         {!isSubmitted ? (
           <div className="p-6 sm:p-7 overflow-y-auto space-y-5">
             {/* Impact Metric Banner */}
-            <div className="p-5 bg-rose-50/80 rounded-3xl border border-rose-100 text-xs text-rose-950 space-y-1.5">
-              <div className="flex items-center justify-between font-black">
+            <div className="p-5 bg-violet-50/80 rounded-3xl border border-violet-100 text-xs text-violet-950 space-y-1.5">
+              <div className="flex items-center justify-between font-bold">
                 <span className="flex items-center gap-1.5">
-                  <Users className="w-4 h-4 text-rose-600" />
+                  <Users className="w-4 h-4 text-violet-600" />
                   <span>Dampak Gotong Royong Komunitas:</span>
                 </span>
-                <span className="font-mono text-rose-700 font-black text-sm">1.482 Sesi Tersubsidi</span>
+                <span className="font-mono text-violet-700 font-bold text-sm">1.482 Sesi Tersubsidi</span>
               </div>
-              <p className="text-indigo-900/80 font-medium text-[11px] leading-relaxed">
+              <p className="text-indigo-900/80 font-medium text-xs leading-relaxed">
                 100% donasi masuk langsung ke dana abadi subsidi silang konseling dan asuransi mikro mahasiswa pra-sejahtera.
               </p>
             </div>
 
             {/* Presets */}
             <div>
-              <label className="text-xs font-black text-indigo-950 block mb-2">
+              <label className="text-xs font-bold text-indigo-950 block mb-2">
                 Pilih Nominal Dukungan:
               </label>
               <div className="grid grid-cols-3 gap-2.5">
@@ -109,15 +109,15 @@ export const PayItForwardModal: React.FC<PayItForwardModalProps> = ({
                     onClick={() => setDonationAmount(p.amount)}
                     className={`p-3.5 rounded-2xl border-2 text-left transition-all cursor-pointer ${
                       donationAmount === p.amount
-                        ? 'border-pink-500 bg-pink-50 shadow-md shadow-pink-100 ring-2 ring-pink-200'
+                        ? 'border-indigo-500 bg-indigo-50 shadow-md shadow-indigo-100 ring-2 ring-indigo-200'
                         : 'border-indigo-50 bg-[#F0F2FF]/60 hover:bg-white'
                     }`}
                   >
-                    <span className="text-[10px] text-indigo-400 block uppercase font-black">{p.label}</span>
-                    <span className="text-xs font-black text-indigo-950 font-mono block my-1">
+                    <span className="text-[11px] text-indigo-400 block uppercase font-bold">{p.label}</span>
+                    <span className="text-xs font-bold text-indigo-950 font-mono block my-1">
                       Rp {Number(p.amount).toLocaleString('id-ID')}
                     </span>
-                    <span className="text-[10px] text-indigo-800/70 font-medium line-clamp-2 leading-tight">{p.impact}</span>
+                    <span className="text-[11px] text-indigo-800/70 font-medium line-clamp-2 leading-tight">{p.impact}</span>
                   </button>
                 ))}
               </div>
@@ -125,21 +125,21 @@ export const PayItForwardModal: React.FC<PayItForwardModalProps> = ({
 
             {/* Custom Amount */}
             <div>
-              <label className="text-xs font-black text-indigo-950 block mb-1.5">
+              <label className="text-xs font-bold text-indigo-950 block mb-1.5">
                 Atau Masukkan Nominal Kustom (Rupiah):
               </label>
               <input
                 type="number"
                 value={donationAmount}
                 onChange={(e) => setDonationAmount(e.target.value)}
-                className="w-full bg-[#F0F2FF] rounded-2xl p-3 text-xs font-black text-indigo-950 border-2 border-indigo-100 font-mono focus:outline-hidden focus:border-pink-500"
+                className="w-full bg-[#F0F2FF] rounded-2xl p-3 text-xs font-bold text-indigo-950 border-2 border-indigo-100 font-mono focus:outline-hidden focus:border-indigo-500"
                 placeholder="50000"
               />
             </div>
 
             {/* Donor Encouragement Message */}
             <div>
-              <label className="text-xs font-black text-indigo-950 block mb-1.5">
+              <label className="text-xs font-bold text-indigo-950 block mb-1.5">
                 Pesan Semangat / Doa untuk Penerima Subsidi:
               </label>
               <textarea
@@ -147,18 +147,18 @@ export const PayItForwardModal: React.FC<PayItForwardModalProps> = ({
                 onChange={(e) => setDonorMessage(e.target.value)}
                 rows={2}
                 placeholder="Tuliskan kata-kata hangat yang akan dibaca teman penerima beasiswa jiwa..."
-                className="w-full bg-[#F0F2FF] rounded-2xl p-3 text-xs font-medium text-indigo-950 border-2 border-indigo-100 resize-none focus:outline-hidden focus:border-pink-500"
+                className="w-full bg-[#F0F2FF] rounded-2xl p-3 text-xs font-medium text-indigo-950 border-2 border-indigo-100 resize-none focus:outline-hidden focus:border-indigo-500"
               />
             </div>
           </div>
         ) : (
           /* Thank You Screen */
           <div className="p-8 text-center space-y-5 animate-in zoom-in-95">
-            <div className="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 mx-auto shadow-md shadow-pink-200">
-              <Heart className="w-8 h-8 fill-pink-500" />
+            <div className="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 mx-auto shadow-md shadow-indigo-200">
+              <Heart className="w-8 h-8 fill-indigo-500" />
             </div>
             <div>
-              <h3 className="text-2xl font-black font-['Outfit',sans-serif] text-indigo-950">
+              <h3 className="text-2xl font-bold font-['Outfit',sans-serif] text-indigo-950">
                 Terima Kasih Banyak, Orang Baik! 🤍
               </h3>
               <p className="text-xs text-indigo-900/80 font-medium mt-1 max-w-sm mx-auto leading-relaxed">
@@ -170,7 +170,7 @@ export const PayItForwardModal: React.FC<PayItForwardModalProps> = ({
             </div>
             <button
               onClick={onClose}
-              className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black rounded-2xl shadow-md shadow-indigo-200 transition-all hover:scale-105 cursor-pointer"
+              className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-2xl shadow-md shadow-indigo-200 transition-all hover:scale-[1.02] cursor-pointer"
             >
               Tutup & Kembali
             </button>
@@ -181,14 +181,14 @@ export const PayItForwardModal: React.FC<PayItForwardModalProps> = ({
           <div className="p-5 bg-[#F0F2FF] border-t border-indigo-50 flex gap-2 justify-end">
             <button
               onClick={onClose}
-              className="px-5 py-2.5 rounded-2xl text-xs font-black text-indigo-700 hover:bg-indigo-100 cursor-pointer"
+              className="px-5 py-2.5 rounded-2xl text-xs font-bold text-indigo-700 hover:bg-indigo-100 cursor-pointer"
             >
               Batal
             </button>
             <button
               id="confirm-payitforward-btn"
               onClick={handleDonate}
-              className="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white text-xs font-black shadow-md shadow-pink-200 transition-all hover:scale-105 cursor-pointer"
+              className="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-xs font-bold shadow-md shadow-indigo-200 transition-all hover:scale-[1.02] cursor-pointer"
             >
               Kirim Donasi Subsidi
             </button>
