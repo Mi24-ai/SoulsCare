@@ -132,7 +132,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
               <Scale className="w-6 h-6 text-amber-300" />
             </div>
             <div>
-              <h2 className="text-xl sm:text-2xl font-black font-['Outfit',sans-serif]">
+              <h2 className="text-xl sm:text-2xl font-bold font-['Outfit',sans-serif]">
                 Model Harga Sliding-Scale & Subsidi Silang
               </h2>
               <p className="text-xs text-indigo-200 mt-0.5">
@@ -153,7 +153,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
         <div className="flex border-b border-indigo-100 bg-[#F0F2FF] px-6 pt-3 gap-2">
           <button
             onClick={() => setActiveTab('tiers')}
-            className={`px-5 py-3 text-xs font-black border-b-2 transition-all cursor-pointer ${
+            className={`px-5 py-3 text-xs font-bold border-b-2 transition-all cursor-pointer ${
               activeTab === 'tiers'
                 ? 'border-indigo-600 text-indigo-950 bg-white rounded-t-2xl shadow-xs'
                 : 'border-transparent text-indigo-800 hover:text-indigo-950'
@@ -163,7 +163,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
           </button>
           <button
             onClick={() => setActiveTab('assessment')}
-            className={`px-5 py-3 text-xs font-black border-b-2 transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-5 py-3 text-xs font-bold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'assessment'
                 ? 'border-indigo-600 text-indigo-950 bg-white rounded-t-2xl shadow-xs'
                 : 'border-transparent text-indigo-800 hover:text-indigo-950'
@@ -174,7 +174,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
           </button>
           <button
             onClick={() => setActiveTab('partner')}
-            className={`px-5 py-3 text-xs font-black border-b-2 transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-5 py-3 text-xs font-bold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'partner'
                 ? 'border-indigo-600 text-indigo-950 bg-white rounded-t-2xl shadow-xs'
                 : 'border-transparent text-indigo-800 hover:text-indigo-950'
@@ -193,7 +193,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
               <div className="p-4 bg-indigo-50 rounded-2xl border border-indigo-100 text-xs text-indigo-950 flex items-start gap-3">
                 <HeartHandshake className="w-5 h-5 text-indigo-600 shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-black">Bagaimana Sistem Subsidi Silang Bekerja?</p>
+                  <p className="font-bold">Bagaimana Sistem Subsidi Silang Bekerja?</p>
                   <p className="text-indigo-900/80 mt-0.5 leading-relaxed font-medium">
                     Pengguna berdaya beli stabil (Tier Standar / Patron) dan donatur CSR menyisihkan kontribusi untuk mensubsidi biaya konseling mahasiswa, pencari kerja, dan anak kos (Tier Beasiswa Jiwa) hingga <strong>85% - 100%</strong>.
                   </p>
@@ -217,7 +217,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                     >
                       <div className="space-y-2.5">
                         <div className="flex items-center justify-between">
-                          <span className={`text-[10px] font-black px-3 py-1 rounded-full ${tier.badgeColor}`}>
+                          <span className={`text-[11px] font-bold px-3 py-1 rounded-full ${tier.badgeColor}`}>
                             {tier.discountPercentage > 0
                               ? `Diskon ${tier.discountPercentage}%`
                               : tier.discountPercentage < 0
@@ -225,13 +225,13 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                               : `Tarif Standar`}
                           </span>
                           {isActive && (
-                            <span className="flex items-center gap-1 text-[10px] font-black text-indigo-700">
+                            <span className="flex items-center gap-1 text-[11px] font-bold text-indigo-700">
                               <CheckCircle2 className="w-3.5 h-3.5" /> Tier Aktif Kamu
                             </span>
                           )}
                         </div>
 
-                        <h3 className="font-black text-indigo-950 text-base font-['Outfit',sans-serif]">
+                        <h3 className="font-bold text-indigo-950 text-base font-['Outfit',sans-serif]">
                           {tier.tierName}
                         </h3>
                         <p className="text-xs font-bold text-indigo-400">{tier.targetAudience}</p>
@@ -240,9 +240,9 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                         </p>
 
                         <div className="pt-2">
-                          <span className="text-[10px] text-indigo-400 uppercase font-black tracking-wider block">Estimasi Biaya Konseling:</span>
+                          <span className="text-[11px] text-indigo-400 uppercase font-bold tracking-wider block">Estimasi Biaya Konseling:</span>
                           <div className="flex items-baseline gap-2 mt-0.5">
-                            <span className="text-xl font-black font-mono text-indigo-950">
+                            <span className="text-xl font-bold font-mono text-indigo-950">
                               Rp {estimatedPrice.toLocaleString('id-ID')}
                             </span>
                             <span className="text-xs text-indigo-300 line-through font-mono">Rp 150.000</span>
@@ -255,7 +255,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                           onSelectTier(tier);
                           confetti({ particleCount: 40, spread: 60 });
                         }}
-                        className={`mt-4 w-full py-3 rounded-2xl text-xs font-black transition-all cursor-pointer ${
+                        className={`mt-4 w-full py-3 rounded-2xl text-xs font-bold transition-all cursor-pointer ${
                           isActive
                             ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200'
                             : 'bg-[#F0F2FF] hover:bg-indigo-100 text-indigo-950 border border-indigo-100'
@@ -271,7 +271,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
               {/* Pay it forward button */}
               <div className="p-5 bg-amber-50/90 rounded-3xl border border-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h4 className="text-xs font-black text-amber-950">Ingin Membantu Sesama Teman Gen Z?</h4>
+                  <h4 className="text-xs font-bold text-amber-950">Ingin Membantu Sesama Teman Gen Z?</h4>
                   <p className="text-xs text-amber-900/80 font-medium mt-0.5">Donasikan sedikit rezeki ke pool dana Beasiswa Jiwa.</p>
                 </div>
                 <button
@@ -279,7 +279,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                     onClose();
                     onOpenPayItForward();
                   }}
-                  className="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-indigo-950 text-xs font-black rounded-2xl shadow-md shadow-amber-900/10 transition-all hover:scale-105 cursor-pointer shrink-0"
+                  className="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-indigo-950 text-xs font-bold rounded-2xl shadow-md shadow-amber-900/10 transition-all hover:scale-[1.02] cursor-pointer shrink-0"
                 >
                   Donasi ke Pool Komunitas →
                 </button>
@@ -291,7 +291,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
           {activeTab === 'assessment' && (
             <div className="space-y-5">
               <div>
-                <h3 className="text-lg font-black text-indigo-950 font-['Outfit',sans-serif]">
+                <h3 className="text-lg font-bold text-indigo-950 font-['Outfit',sans-serif]">
                   Kalkulator & Rekomendasi Subsidi AI Souls Care
                 </h3>
                 <p className="text-xs font-bold text-indigo-400 mt-0.5">
@@ -301,7 +301,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-black text-indigo-950 block mb-1.5">Profesi / Status:</label>
+                  <label className="text-xs font-bold text-indigo-950 block mb-1.5">Profesi / Status:</label>
                   <select
                     value={occupation}
                     onChange={(e) => setOccupation(e.target.value)}
@@ -316,7 +316,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="text-xs font-black text-indigo-950 block mb-1.5">Rentang Penghasilan / Uang Saku Bulanan:</label>
+                  <label className="text-xs font-bold text-indigo-950 block mb-1.5">Rentang Penghasilan / Uang Saku Bulanan:</label>
                   <select
                     value={incomeRange}
                     onChange={(e) => setIncomeRange(e.target.value)}
@@ -331,7 +331,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
               </div>
 
               <div>
-                <label className="text-xs font-black text-indigo-950 block mb-1.5">Kondisi Tempat Tinggal / Biaya Hidup:</label>
+                <label className="text-xs font-bold text-indigo-950 block mb-1.5">Kondisi Tempat Tinggal / Biaya Hidup:</label>
                 <select
                   value={livingCondition}
                   onChange={(e) => setLivingCondition(e.target.value)}
@@ -345,7 +345,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
               </div>
 
               <div>
-                <label className="text-xs font-black text-indigo-950 block mb-1.5">Catatan Beban Finansial / Cerita Tambahan:</label>
+                <label className="text-xs font-bold text-indigo-950 block mb-1.5">Catatan Beban Finansial / Cerita Tambahan:</label>
                 <textarea
                   value={financialNote}
                   onChange={(e) => setFinancialNote(e.target.value)}
@@ -360,7 +360,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                   id="run-ai-assessment-btn"
                   onClick={handleRunAiAssessment}
                   disabled={isAssessing}
-                  className="px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black shadow-lg shadow-indigo-200 flex items-center gap-2 transition-all hover:scale-105 cursor-pointer"
+                  className="px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-lg shadow-indigo-200 flex items-center gap-2 transition-all hover:scale-[1.02] cursor-pointer"
                 >
                   <Sparkles className="w-4 h-4 text-amber-300" />
                   <span>{isAssessing ? 'AI Sedang Mengevaluasi...' : 'Hitung Rekomendasi Subsidi AI'}</span>
@@ -370,18 +370,18 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
               {aiAssessmentResult && (
                 <div className="p-6 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl border-2 border-indigo-200 space-y-3 animate-in zoom-in-95">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-black text-indigo-950 uppercase tracking-wider">
+                    <span className="text-xs font-bold text-indigo-950 uppercase tracking-wider">
                       Hasil Rekomendasi Evaluasi AI:
                     </span>
-                    <span className="text-xs font-black px-3 py-1 bg-indigo-600 text-white rounded-full shadow-xs">
+                    <span className="text-xs font-bold px-3 py-1 bg-indigo-600 text-white rounded-full shadow-xs">
                       Subsidi {aiAssessmentResult.subsidyPercent}% Disetujui
                     </span>
                   </div>
-                  <h4 className="text-base font-black text-indigo-950">{aiAssessmentResult.tier}</h4>
+                  <h4 className="text-base font-bold text-indigo-950">{aiAssessmentResult.tier}</h4>
                   <p className="text-xs text-indigo-900 font-medium leading-relaxed">{aiAssessmentResult.rationale}</p>
-                  <div className="pt-3 border-t border-indigo-200 flex items-center justify-between text-xs font-black">
+                  <div className="pt-3 border-t border-indigo-200 flex items-center justify-between text-xs font-bold">
                     <span className="text-indigo-950">Biaya Rekomendasi per Sesi:</span>
-                    <span className="text-lg font-black text-indigo-600 font-mono">
+                    <span className="text-lg font-bold text-indigo-600 font-mono">
                       Rp {aiAssessmentResult.recommendedPricePerSession?.toLocaleString('id-ID')}
                     </span>
                   </div>
@@ -396,7 +396,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
               <div className="flex items-start gap-3.5 p-5 bg-[#F0F2FF] rounded-3xl border border-indigo-100">
                 <Building2 className="w-6 h-6 text-indigo-600 shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="font-black text-indigo-950 text-sm">Program Kemitraan Kampus & Beasiswa CSR</h3>
+                  <h3 className="font-bold text-indigo-950 text-sm">Program Kemitraan Kampus & Beasiswa CSR</h3>
                   <p className="text-xs text-indigo-900 font-medium mt-1 leading-relaxed">
                     Jika universitas, BEM, atau perusahaan tempatmu bekerja bermitra dengan Souls Care, masukkan kode kemitraan untuk membuka <strong>100% Voucher Konseling Gratis</strong>.
                   </p>
@@ -404,7 +404,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
               </div>
 
               <div className="p-6 bg-white rounded-3xl border-2 border-indigo-50 shadow-md shadow-indigo-100/40 space-y-4">
-                <label className="text-xs font-black text-indigo-950 block">
+                <label className="text-xs font-bold text-indigo-950 block">
                   Masukkan Kode Kemitraan Kampus / Voucher CSR:
                 </label>
                 <div className="flex gap-2">
@@ -413,12 +413,12 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                     value={partnerCode}
                     onChange={(e) => setPartnerCode(e.target.value)}
                     placeholder="Contoh: KAMPUS-UI, ITB-CARE, UGM-PEDULI, CSR-TELKOM"
-                    className="flex-1 bg-[#F0F2FF] rounded-2xl px-4 py-3 text-xs font-black text-indigo-950 border-2 border-indigo-100 uppercase font-mono tracking-wider focus:outline-hidden focus:border-indigo-500"
+                    className="flex-1 bg-[#F0F2FF] rounded-2xl px-4 py-3 text-xs font-bold text-indigo-950 border-2 border-indigo-100 uppercase font-mono tracking-wider focus:outline-hidden focus:border-indigo-500"
                   />
                   <button
                     id="verify-partner-code-btn"
                     onClick={handleVerifyPartnerCode}
-                    className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black rounded-2xl shadow-md shadow-indigo-200 transition-all hover:scale-105 cursor-pointer"
+                    className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-2xl shadow-md shadow-indigo-200 transition-all hover:scale-[1.02] cursor-pointer"
                   >
                     Verifikasi Kode
                   </button>
@@ -432,7 +432,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
 
                 {partnerVerified && (
                   <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-300 text-xs text-emerald-950 space-y-1 font-medium">
-                    <div className="flex items-center gap-1.5 font-black text-emerald-800">
+                    <div className="flex items-center gap-1.5 font-bold text-emerald-800">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                       <span>Kemitraan Terverifikasi: {partnerVerified}</span>
                     </div>
@@ -443,7 +443,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
 
               {/* Demo Sample Partner Codes for quick testing */}
               <div className="space-y-2">
-                <span className="text-[11px] font-black text-indigo-400 uppercase tracking-wider block">
+                <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider block">
                   Kode Institusi Aktif (Klik untuk coba):
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -455,13 +455,13 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                       }}
                       className="p-3.5 rounded-2xl border-2 border-indigo-50 hover:border-indigo-400 bg-[#F0F2FF]/60 hover:bg-white text-left transition-all cursor-pointer"
                     >
-                      <div className="flex items-center justify-between text-xs font-black text-indigo-950">
+                      <div className="flex items-center justify-between text-xs font-bold text-indigo-950">
                         <span className="font-mono text-indigo-600">{code}</span>
-                        <span className="text-[10px] text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full font-black">
+                        <span className="text-[11px] text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full font-bold">
                           Cover {info.subsidy}%
                         </span>
                       </div>
-                      <p className="text-[11px] text-indigo-400 font-medium mt-0.5 truncate">{info.campus}</p>
+                      <p className="text-xs text-indigo-400 font-medium mt-0.5 truncate">{info.campus}</p>
                     </button>
                   ))}
                 </div>
@@ -474,7 +474,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
         <div className="p-5 bg-[#F0F2FF] border-t border-indigo-50 flex justify-end">
           <button
             onClick={onClose}
-            className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black rounded-2xl shadow-md shadow-indigo-200 transition-all hover:scale-105 cursor-pointer"
+            className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-2xl shadow-md shadow-indigo-200 transition-all hover:scale-[1.02] cursor-pointer"
           >
             Selesai & Terapkan
           </button>
