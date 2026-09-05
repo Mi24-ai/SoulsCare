@@ -145,11 +145,11 @@ export const AiCompanionTab: React.FC<AiCompanionTabProps> = ({
       {/* Top Vibrant Hero Banner matching Design HTML */}
       <div className="bg-gradient-to-br from-indigo-500 via-purple-600 to-indigo-700 rounded-[40px] p-6 sm:p-10 text-white relative overflow-hidden shadow-xl shadow-indigo-200/50">
         <div className="relative z-10 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs font-black uppercase tracking-widest text-indigo-100 mb-3">
-            <Sparkles className="w-4 h-4 text-amber-300 animate-spin-slow" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold uppercase tracking-widest text-indigo-100 mb-3">
+            <Sparkles className="w-4 h-4 text-amber-300 " />
             <span>Souls AI • Weltie</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-3 leading-tight tracking-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 leading-tight tracking-tight">
             "Bagaimana kondisi hatimu hari ini?"
           </h1>
           <p className="text-sm sm:text-base text-indigo-100/90 font-medium mb-6 leading-relaxed">
@@ -162,13 +162,13 @@ export const AiCompanionTab: React.FC<AiCompanionTabProps> = ({
                 const el = document.getElementById('aria-chat-input');
                 el?.focus();
               }}
-              className="bg-white text-indigo-600 px-6 py-3.5 rounded-2xl font-black shadow-xl shadow-indigo-900/20 hover:scale-105 transition-all text-sm cursor-pointer"
+              className="bg-white text-indigo-600 px-6 py-3.5 rounded-2xl font-bold shadow-xl shadow-indigo-900/20 hover:scale-[1.02] transition-all text-sm cursor-pointer"
             >
               Curhat ke Weltie Sekarang
             </button>
             <button 
               onClick={onOpenBreathing}
-              className="bg-indigo-400/30 backdrop-blur-md text-white px-6 py-3.5 rounded-2xl font-black hover:bg-indigo-400/40 transition-all text-sm cursor-pointer"
+              className="bg-indigo-400/30 backdrop-blur-md text-white px-6 py-3.5 rounded-2xl font-bold hover:bg-indigo-400/40 transition-all text-sm cursor-pointer"
             >
               Daily Vibe & Napas 🌬️
             </button>
@@ -177,12 +177,12 @@ export const AiCompanionTab: React.FC<AiCompanionTabProps> = ({
 
         {/* Ambient Blur & Fun Vibrant Orbs */}
         <div className="absolute -right-10 -bottom-10 w-80 h-80 bg-white/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="hidden sm:flex absolute right-14 top-10 w-20 h-20 animate-bounce drop-shadow-xl">
+        <div className="hidden sm:flex absolute right-14 top-10 w-20 h-20 drop-shadow-xl">
           <svg viewBox="0 0 680 400" className="w-full h-full" style={{ transform: 'scale(2.3) translate(-5%, -10%)' }}>
             <defs>
               <linearGradient id="weltieBlobGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#f472b6" />
-                <stop offset="100%" stopColor="#ec4899" />
+                <stop offset="0%" stopColor="#a78bfa" />
+                <stop offset="100%" stopColor="#818cf8" />
               </linearGradient>
             </defs>
             <path d="M340 110 C410 110 460 160 460 225 C460 290 405 330 340 330 C275 330 220 290 220 225 C220 160 270 110 340 110 Z" fill="url(#weltieBlobGrad)" />
@@ -207,15 +207,15 @@ export const AiCompanionTab: React.FC<AiCompanionTabProps> = ({
         >
           <div className="space-y-1">
             <div className="flex items-center justify-between">
-              <h3 className="text-emerald-950 font-black text-xl">Konseling Profesional</h3>
-              <span className="text-[10px] font-black text-emerald-900 bg-white/70 px-3 py-1 rounded-full uppercase tracking-wider">
+              <h3 className="text-emerald-950 font-bold text-xl">Konseling Profesional</h3>
+              <span className="text-[11px] font-bold text-emerald-900 bg-white/70 px-3 py-1 rounded-full uppercase tracking-wider">
                 Sliding-Scale
               </span>
             </div>
             <p className="text-emerald-800 text-sm font-medium">Konsultasi dengan psikolog & psikiater terverifikasi HIMPSI</p>
           </div>
           <div className="flex items-center justify-between mt-6 pt-4 border-t border-emerald-200/60">
-            <span className="text-xs font-black text-emerald-900 bg-white px-3.5 py-1.5 rounded-full shadow-2xs">
+            <span className="text-xs font-bold text-emerald-900 bg-white px-3.5 py-1.5 rounded-full shadow-2xs">
               Mulai Rp 15.000 / sesi
             </span>
             <div className="flex items-center gap-1 text-emerald-900 font-bold text-xs">
@@ -229,8 +229,8 @@ export const AiCompanionTab: React.FC<AiCompanionTabProps> = ({
         <div className="bg-[#FEF3C7] rounded-[32px] p-6 sm:p-7 flex flex-col justify-between border-b-4 border-amber-300 shadow-sm">
           <div className="space-y-1">
             <div className="flex items-center justify-between">
-              <h3 className="text-amber-950 font-black text-xl">Souls Vault Savings</h3>
-              <span className="text-[10px] font-black text-amber-900 bg-white/70 px-3 py-1 rounded-full uppercase tracking-wider">
+              <h3 className="text-amber-950 font-bold text-xl">Souls Vault Savings</h3>
+              <span className="text-[11px] font-bold text-amber-900 bg-white/70 px-3 py-1 rounded-full uppercase tracking-wider">
                 +15% Match Bonus
               </span>
             </div>
@@ -240,7 +240,7 @@ export const AiCompanionTab: React.FC<AiCompanionTabProps> = ({
             <div className="w-full bg-white/80 h-3 rounded-full overflow-hidden p-0.5">
               <div className="bg-amber-500 w-3/4 h-full rounded-full transition-all" />
             </div>
-            <div className="flex justify-between text-xs font-black text-amber-900">
+            <div className="flex justify-between text-xs font-bold text-amber-900">
               <span>Tercapai Rp 185.000 / Rp 250.000</span>
               <span className="text-emerald-800">74%</span>
             </div>
@@ -257,16 +257,16 @@ export const AiCompanionTab: React.FC<AiCompanionTabProps> = ({
               <Bot className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-black text-base text-indigo-950">Weltie Chat Space</h3>
-              <p className="text-[11px] font-bold text-indigo-400">Terenkripsi • 100% Rahasia & Aman</p>
+              <h3 className="font-bold text-base text-indigo-950">Weltie Chat Space</h3>
+              <p className="text-xs font-bold text-indigo-400">Terenkripsi • 100% Rahasia & Aman</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2 bg-indigo-50/70 p-1.5 rounded-2xl border border-indigo-100">
-            <span className="text-[10px] font-black uppercase tracking-wider text-indigo-400 px-2">Gaya Respon:</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-indigo-400 px-2">Gaya Respon:</span>
             <button
               onClick={() => setTone('empathetic')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 tone === 'empathetic' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200' : 'text-indigo-900 hover:bg-white'
               }`}
             >
@@ -274,7 +274,7 @@ export const AiCompanionTab: React.FC<AiCompanionTabProps> = ({
             </button>
             <button
               onClick={() => setTone('solution')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 tone === 'solution' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200' : 'text-indigo-900 hover:bg-white'
               }`}
             >
@@ -282,7 +282,7 @@ export const AiCompanionTab: React.FC<AiCompanionTabProps> = ({
             </button>
             <button
               onClick={() => setTone('reflective')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 tone === 'reflective' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200' : 'text-indigo-900 hover:bg-white'
               }`}
             >
@@ -333,7 +333,7 @@ export const AiCompanionTab: React.FC<AiCompanionTabProps> = ({
                       {msg.suggestedExercise === 'breathing' && (
                         <button
                           onClick={onOpenBreathing}
-                          className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-[#D1FAE5] hover:bg-emerald-200 text-emerald-950 border border-emerald-300 text-xs font-black shadow-xs transition-all hover:scale-102 cursor-pointer"
+                          className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-[#D1FAE5] hover:bg-emerald-200 text-emerald-950 border border-emerald-300 text-xs font-bold shadow-xs transition-all hover:scale-[1.02] cursor-pointer"
                         >
                           <Wind className="w-3.5 h-3.5 text-emerald-700" />
                           <span>Mulai Latihan Napas 4-7-8</span>
@@ -342,7 +342,7 @@ export const AiCompanionTab: React.FC<AiCompanionTabProps> = ({
                       {msg.suggestedExercise === 'grounding' && (
                         <button
                           onClick={onOpenGrounding}
-                          className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-950 border border-indigo-200 text-xs font-black shadow-xs transition-all hover:scale-102 cursor-pointer"
+                          className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-950 border border-indigo-200 text-xs font-bold shadow-xs transition-all hover:scale-[1.02] cursor-pointer"
                         >
                           <Compass className="w-3.5 h-3.5 text-indigo-700" />
                           <span>Latihan Grounding 5-4-3-2-1</span>
@@ -351,7 +351,7 @@ export const AiCompanionTab: React.FC<AiCompanionTabProps> = ({
                       {msg.suggestedExercise === 'journal' && (
                         <button
                           onClick={onOpenJournal}
-                          className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-[#FEF3C7] hover:bg-amber-200 text-amber-950 border border-amber-300 text-xs font-black shadow-xs transition-all hover:scale-102 cursor-pointer"
+                          className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-[#FEF3C7] hover:bg-amber-200 text-amber-950 border border-amber-300 text-xs font-bold shadow-xs transition-all hover:scale-[1.02] cursor-pointer"
                         >
                           <BookOpen className="w-3.5 h-3.5 text-amber-700" />
                           <span>Tulis Jurnal Refleksi Jiwa</span>
@@ -360,7 +360,7 @@ export const AiCompanionTab: React.FC<AiCompanionTabProps> = ({
                       {msg.suggestedExercise === 'counseling' && (
                         <button
                           onClick={onOpenCounseling}
-                          className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-purple-50 hover:bg-purple-100 text-purple-950 border border-purple-200 text-xs font-black shadow-xs transition-all hover:scale-102 cursor-pointer"
+                          className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-purple-50 hover:bg-purple-100 text-purple-950 border border-purple-200 text-xs font-bold shadow-xs transition-all hover:scale-[1.02] cursor-pointer"
                         >
                           <Users className="w-3.5 h-3.5 text-purple-700" />
                           <span>Cari Psikolog Tarif Sliding-Scale</span>
@@ -369,13 +369,13 @@ export const AiCompanionTab: React.FC<AiCompanionTabProps> = ({
                     </div>
                   )}
 
-                  <span className={`text-[10px] font-bold text-indigo-300 block ${isUser ? 'text-right' : 'text-left'}`}>
+                  <span className={`text-[11px] font-bold text-indigo-300 block ${isUser ? 'text-right' : 'text-left'}`}>
                     {msg.timestamp}
                   </span>
                 </div>
 
                 {isUser && (
-                  <div className="w-10 h-10 rounded-2xl bg-white border-2 border-indigo-100 flex items-center justify-center text-indigo-900 shrink-0 font-black text-xs shadow-xs">
+                  <div className="w-10 h-10 rounded-2xl bg-white border-2 border-indigo-100 flex items-center justify-center text-indigo-900 shrink-0 font-bold text-xs shadow-xs">
                     Kamu
                   </div>
                 )}
@@ -401,7 +401,7 @@ export const AiCompanionTab: React.FC<AiCompanionTabProps> = ({
 
         {/* Quick Prompts Chips */}
         <div className="py-2 flex items-center gap-2 overflow-x-auto scrollbar-none">
-          <span className="text-[10px] font-black text-indigo-400 uppercase tracking-wider shrink-0">
+          <span className="text-[11px] font-bold text-indigo-400 uppercase tracking-wider shrink-0">
             Topik Cepat:
           </span>
           {quickPrompts.map((qp, idx) => (
@@ -433,18 +433,18 @@ export const AiCompanionTab: React.FC<AiCompanionTabProps> = ({
                 id="send-aria-msg-btn"
                 onClick={() => handleSendMessage()}
                 disabled={!input.trim() || isLoading}
-                className="p-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white shadow-lg shadow-indigo-200 transition-all hover:scale-105 cursor-pointer disabled:cursor-not-allowed"
+                className="p-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white shadow-lg shadow-indigo-200 transition-all hover:scale-[1.02] cursor-pointer disabled:cursor-not-allowed"
                 aria-label="Kirim Pesan"
               >
                 <Send className="w-4 h-4" />
               </button>
             </div>
           </div>
-          <div className="mt-2 flex items-center justify-between text-[11px] font-bold text-indigo-400 px-2">
+          <div className="mt-2 flex items-center justify-between text-xs font-bold text-indigo-400 px-2">
             <span>Privasi terjamin • Enkripsi end-to-end tanpa penyimpanan data sensitif</span>
             <button 
               onClick={onOpenCrisis} 
-              className="text-rose-600 hover:underline font-extrabold flex items-center gap-1 cursor-pointer"
+              className="text-rose-600 hover:underline font-semibold flex items-center gap-1 cursor-pointer"
             >
               <ShieldAlert className="w-3.5 h-3.5" />
               <span>Butuh Bantuan Krisis Cepat?</span>
