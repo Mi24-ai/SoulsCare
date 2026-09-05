@@ -93,12 +93,12 @@ export function App() {
               <img src="/image/logo.png" alt="Souls Care Logo" className="w-full h-full object-cover" />
             </div>
             <div>
-              <p className="font-black text-sm text-indigo-950 font-['Outfit',sans-serif]">Souls Care Indonesia</p>
-              <p className="text-[11px] font-bold text-indigo-400">Ekosistem Kesehatan Mental Berkeadilan untuk Gen Z</p>
+              <p className="font-bold text-sm text-indigo-950 font-['Outfit',sans-serif]">Souls Care Indonesia</p>
+              <p className="text-xs font-bold text-indigo-400">Ekosistem Kesehatan Mental Berkeadilan untuk Gen Z</p>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-black">
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-bold">
             <button
               onClick={() => setIsSlidingScaleOpen(true)}
               className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-800"
@@ -108,21 +108,21 @@ export function App() {
             </button>
             <button
               onClick={() => setIsPayItForwardOpen(true)}
-              className="hover:text-pink-600 transition-colors flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-pink-50 border border-pink-100 text-pink-800"
+              className="hover:text-violet-600 transition-colors flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-violet-50 border border-violet-100 text-violet-800"
             >
-              <Heart className="w-3.5 h-3.5 text-pink-500" />
+              <Heart className="w-3.5 h-3.5 text-violet-500" />
               <span>Pool Gotong Royong</span>
             </button>
             <button
               onClick={() => setIsCrisisModalOpen(true)}
-              className="hover:text-red-700 transition-colors text-red-600 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-50 border border-red-100 font-extrabold"
+              className="hover:text-red-700 transition-colors text-red-600 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-50 border border-red-100 font-semibold"
             >
               <PhoneCall className="w-3.5 h-3.5 text-red-500" />
               <span>Hotline Krisis 24/7</span>
             </button>
           </div>
 
-          <div className="text-center md:text-right text-[11px] font-bold text-indigo-300">
+          <div className="text-center md:text-right text-xs font-bold text-indigo-300">
             Terenkripsi Standar Medis • Terverifikasi HIMPSI & Kemenkes RI
           </div>
         </div>
