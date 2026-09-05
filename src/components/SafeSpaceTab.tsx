@@ -153,11 +153,11 @@ export const SafeSpaceTab: React.FC = () => {
       <div className="bg-gradient-to-br from-indigo-500 via-purple-600 to-indigo-700 rounded-[40px] text-white p-6 sm:p-10 shadow-xl shadow-indigo-200/50 relative overflow-hidden">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs font-black uppercase tracking-widest text-indigo-100">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold uppercase tracking-widest text-indigo-100">
               <Lock className="w-4 h-4 text-amber-300" />
               <span>100% Pseudonim & Terenkripsi Peer-to-Peer</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight">
               Private Safe Space & Circle Curhat Anonim
             </h1>
             <p className="text-sm sm:text-base text-indigo-100/90 font-medium leading-relaxed">
@@ -172,14 +172,14 @@ export const SafeSpaceTab: React.FC = () => {
                 {currentAlias.avatar}
               </div>
               <div>
-                <span className="text-[10px] text-indigo-200 uppercase font-black tracking-wider block">Alias Anonim Kamu:</span>
-                <span className="text-sm font-black text-white block">{currentAlias.name}</span>
-                <span className="text-[10px] font-bold text-amber-300">{currentAlias.badge}</span>
+                <span className="text-[11px] text-indigo-200 uppercase font-bold tracking-wider block">Alias Anonim Kamu:</span>
+                <span className="text-sm font-bold text-white block">{currentAlias.name}</span>
+                <span className="text-[11px] font-bold text-amber-300">{currentAlias.badge}</span>
               </div>
             </div>
             <button
               onClick={randomizeAlias}
-              className="p-2.5 rounded-2xl bg-white/20 hover:bg-white/30 text-white transition-all flex items-center gap-1.5 text-xs font-black cursor-pointer"
+              className="p-2.5 rounded-2xl bg-white/20 hover:bg-white/30 text-white transition-all flex items-center gap-1.5 text-xs font-bold cursor-pointer"
               title="Ganti Alias Acak"
             >
               <Shuffle className="w-4 h-4" />
@@ -196,7 +196,7 @@ export const SafeSpaceTab: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Col: Channel Rooms */}
         <div className="space-y-4">
-          <h3 className="text-xs font-black text-indigo-950 uppercase tracking-wider px-1">
+          <h3 className="text-xs font-bold text-indigo-950 uppercase tracking-wider px-1">
             Pilih Circle Ruang Curhat
           </h3>
           <div className="space-y-2.5">
@@ -218,12 +218,12 @@ export const SafeSpaceTab: React.FC = () => {
                       {getRoomIcon(room.icon)}
                     </div>
                     <div>
-                      <h4 className="text-xs font-black text-indigo-950">{room.name}</h4>
-                      <p className="text-[11px] font-medium text-indigo-400 line-clamp-1 mt-0.5">{room.description}</p>
+                      <h4 className="text-xs font-bold text-indigo-950">{room.name}</h4>
+                      <p className="text-xs font-medium text-indigo-400 line-clamp-1 mt-0.5">{room.description}</p>
                     </div>
                   </div>
 
-                  <span className="text-[10px] bg-indigo-50 text-indigo-800 px-2.5 py-1 rounded-full font-black shrink-0 border border-indigo-100">
+                  <span className="text-[11px] bg-indigo-50 text-indigo-800 px-2.5 py-1 rounded-full font-bold shrink-0 border border-indigo-100">
                     {room.activeMembers} online
                   </span>
                 </button>
@@ -233,7 +233,7 @@ export const SafeSpaceTab: React.FC = () => {
 
           {/* Community Guidelines Box */}
           <div className="p-5 bg-[#FEF3C7] rounded-[28px] border-b-4 border-amber-300 text-xs text-amber-950 space-y-2 shadow-sm">
-            <div className="flex items-center gap-1.5 font-black text-sm text-amber-950">
+            <div className="flex items-center gap-1.5 font-bold text-sm text-amber-950">
               <ShieldCheck className="w-4 h-4 text-amber-800" />
               <span>Kode Etik Ruang Aman</span>
             </div>
@@ -252,13 +252,13 @@ export const SafeSpaceTab: React.FC = () => {
                 {getRoomIcon(activeRoom.icon)}
               </div>
               <div>
-                <h2 className="text-base font-black text-indigo-950 font-['Outfit',sans-serif]">
+                <h2 className="text-base font-bold text-indigo-950 font-['Outfit',sans-serif]">
                   {activeRoom.name}
                 </h2>
                 <p className="text-xs font-bold text-indigo-400">{activeRoom.description}</p>
               </div>
             </div>
-            <span className="text-xs font-black text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
+            <span className="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
               {activeRoom.tag}
             </span>
           </div>
@@ -267,8 +267,8 @@ export const SafeSpaceTab: React.FC = () => {
           <div className="bg-white rounded-[32px] border-2 border-indigo-50 p-5 sm:p-6 shadow-xl shadow-indigo-100/50">
             <div className="flex items-center gap-2 mb-3">
               <span className="text-base">{currentAlias.avatar}</span>
-              <span className="text-xs font-black text-indigo-950">{currentAlias.name}</span>
-              <span className="text-[11px] font-bold text-indigo-400">• Posting secara rahasia</span>
+              <span className="text-xs font-bold text-indigo-950">{currentAlias.name}</span>
+              <span className="text-xs font-bold text-indigo-400">• Posting secara rahasia</span>
             </div>
             <textarea
               id="safespace-input-textarea"
@@ -279,12 +279,12 @@ export const SafeSpaceTab: React.FC = () => {
               className="w-full bg-[#F0F2FF] rounded-2xl p-3.5 text-xs sm:text-sm font-medium text-indigo-950 placeholder-indigo-300 border-2 border-indigo-100 focus:outline-hidden focus:border-indigo-500 focus:bg-white resize-none transition-all"
             />
             <div className="mt-3 flex items-center justify-between">
-              <span className="text-[11px] font-bold text-indigo-400">Pesan otomatis dimoderasi untuk kenyamanan bersama</span>
+              <span className="text-xs font-bold text-indigo-400">Pesan otomatis dimoderasi untuk kenyamanan bersama</span>
               <button
                 id="safespace-post-btn"
                 onClick={handleSendMessage}
                 disabled={!inputMessage.trim() || isPosting}
-                className="px-5 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white text-xs font-black shadow-lg shadow-indigo-200 flex items-center gap-2 transition-all hover:scale-105 cursor-pointer"
+                className="px-5 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white text-xs font-bold shadow-lg shadow-indigo-200 flex items-center gap-2 transition-all hover:scale-[1.02] cursor-pointer"
               >
                 <Send className="w-4 h-4" />
                 <span>Kirim Curhat</span>
@@ -308,14 +308,14 @@ export const SafeSpaceTab: React.FC = () => {
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-black text-indigo-950">{msg.authorAlias}</span>
+                        <span className="text-xs font-bold text-indigo-950">{msg.authorAlias}</span>
                         {msg.authorBadge && (
-                          <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-pink-50 text-pink-700 font-black border border-pink-100">
+                          <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-pink-50 text-pink-700 font-bold border border-pink-100">
                             {msg.authorBadge}
                           </span>
                         )}
                       </div>
-                      <span className="text-[10px] font-bold text-indigo-300">{msg.timestamp}</span>
+                      <span className="text-[11px] font-bold text-indigo-300">{msg.timestamp}</span>
                     </div>
                   </div>
                 </div>
