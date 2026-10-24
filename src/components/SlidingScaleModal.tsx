@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import { 
-  Percent, 
-  X, 
-  Sparkles, 
-  CheckCircle2, 
-  GraduationCap, 
-  Building2, 
-  ArrowRight, 
-  Scale, 
-  HeartHandshake, 
-  ShieldCheck, 
-  HelpCircle,
-  FileCheck
+import {
+  X,
+  Sparkles,
+  CheckCircle2,
+  GraduationCap,
+  Building2,
+  Scale,
+  HeartHandshake,
+  ShieldCheck,
+  FileCheck,
+  Clock,
+  Wallet,
 } from 'lucide-react';
 import { SlidingScaleTier } from '../types';
 import { slidingScaleTiers } from '../data/safeSpaceData';
@@ -25,6 +24,79 @@ interface SlidingScaleModalProps {
   onOpenPayItForward: () => void;
 }
 
+/* ------------------------------------------------------------------ */
+/* Konfigurasi sistem subsidi (data simulasi, hubungkan ke backend)    */
+/* ------------------------------------------------------------------ */
+
+// Tarif dasar sesi konseling. Psikolog selalu menerima tarif ini dikurangi komisi platform.
+const BASE_PRICE = 150000;
+
+// Saldo pool subsidi silang bulan ini. Jumlah sesi bersubsidi dibatasi oleh saldo ini.
+const POOL_STATUS = {
+  monthlyBudget: 12000000,
+  usedThisMonth: 8700000,
+};
+
+// Batas sesi bersubsidi per pengguna agar subsidi merata.
+const SUBSIDIZED_SESSION_CAP_PER_SEMESTER = 4;
+
+// Sumber pengisian pool.
+const POOL_SOURCES = [
+  'Kontribusi tier Patron',
+  'Donasi pay-it-forward',
+  'CSR kampus & perusahaan',
+  'Komisi platform',
+];
+
+// Kode kemitraan SIMULASI. Nama institusi sengaja generik; ganti dengan mitra nyata
+// hanya setelah ada kesepakatan tertulis. Tiap kode punya kuota sesi bulanan sendiri.
+const verifiedPartnerCodes: Record<
+  string,
+  { campus: string; subsidy: number; desc: string; monthlyQuota: number; usedThisMonth: number }
+> = {
+  'KAMPUS-A': {
+    campus: 'Kampus Mitra A (contoh simulasi)',
+    subsidy: 100,
+    desc: 'Konseling gratis 100% untuk civitas kampus, didanai kontribusi kampus mitra.',
+    monthlyQuota: 80,
+    usedThisMonth: 52,
+  },
+  'KAMPUS-B': {
+    campus: 'Kampus Mitra B (contoh simulasi)',
+    subsidy: 100,
+    desc: 'Akses konseling bebas biaya untuk mahasiswa, didanai dana kesejahteraan kampus.',
+    monthlyQuota: 60,
+    usedThisMonth: 31,
+  },
+  'CSR-PERUSAHAAN': {
+    campus: 'Perusahaan Mitra CSR (contoh simulasi)',
+    subsidy: 100,
+    desc: 'Grant konseling 100% untuk penerima program CSR, didanai perusahaan mitra.',
+    monthlyQuota: 40,
+    usedThisMonth: 12,
+  },
+  'GENZ-SEHAT': {
+    campus: 'Komunitas Solidaritas Gen Z',
+    subsidy: 85,
+    desc: 'Subsidi 85% didanai pool donasi Pay-It-Forward Souls Care.',
+    monthlyQuota: 50,
+    usedThisMonth: 20,
+  },
+  'KAMPUS-PENUH': {
+    campus: 'Kampus Mitra C (simulasi kuota habis)',
+    subsidy: 100,
+    desc: 'Contoh kondisi ketika kuota bulanan mitra sudah terpakai seluruhnya.',
+    monthlyQuota: 30,
+    usedThisMonth: 30,
+  },
+};
+
+const rupiah = (n: number) => `Rp ${n.toLocaleString('id-ID')}`;
+
+// Nilai subsidi yang harus ditutup pool untuk satu sesi pada tier tertentu.
+const subsidyPerSession = (tier: SlidingScaleTier) =>
+  tier.discountPercentage > 0 ? Math.round((BASE_PRICE * tier.discountPercentage) / 100) : 0;
+
 export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
   isOpen,
   onClose,
@@ -32,9 +104,12 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
   onSelectTier,
   onOpenPayItForward,
 }) => {
-  if (!isOpen) return null;
-
   const [activeTab, setActiveTab] = useState<'tiers' | 'assessment' | 'partner'>('tiers');
+
+  // Verifikasi tier bersubsidi
+  const [pendingTier, setPendingTier] = useState<SlidingScaleTier | null>(null);
+  const [proofFileName, setProofFileName] = useState<string | null>(null);
+  const [waitlistTierId, setWaitlistTierId] = useState<string | null>(null);
 
   // Assessment Form State
   const [occupation, setOccupation] = useState('Mahasiswa');
@@ -47,43 +122,84 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
   // Partner code state
   const [partnerCode, setPartnerCode] = useState('');
   const [partnerVerified, setPartnerVerified] = useState<string | null>(null);
+  const [partnerRemainingQuota, setPartnerRemainingQuota] = useState<number | null>(null);
   const [partnerError, setPartnerError] = useState<string | null>(null);
 
-  const verifiedPartnerCodes: Record<string, { campus: string; subsidy: number; desc: string }> = {
-    'KAMPUS-UI': { campus: 'Universitas Indonesia (BEM UI x Souls Care Grant)', subsidy: 100, desc: 'Beasiswa 100% Konseling Gratis & Asuransi Mikro didanai Dana Abadi UI.' },
-    'ITB-CARE': { campus: 'Institut Teknologi Bandung (Kesejahteraan Mahasiswa ITB)', subsidy: 100, desc: 'Akses Konseling Bebas Biaya 100% untuk seluruh civitas akademika ITB.' },
-    'UGM-PEDULI': { campus: 'Universitas Gadjah Mada (UGM Mental Health Initiative)', subsidy: 100, desc: 'Subsidi Penuh 100% didanai Alumni Peduli Jiwa UGM.' },
-    'CSR-TELKOM': { campus: 'Telkom Indonesia ESG & CSR Digital Youth', subsidy: 100, desc: 'Grant 100% Konseling Jiwa untuk 1.000 Mahasiswa & Freshgraduate se-Indonesia.' },
-    'GENZ-SEHAT': { campus: 'Komunitas Solidaritas Gen Z Indonesia', subsidy: 85, desc: 'Subsidi 85% didanai Pool Donasi Pay-It-Forward Souls Care.' },
+  // Early return setelah semua hook agar urutan hook selalu sama.
+  if (!isOpen) return null;
+
+  const poolRemaining = Math.max(POOL_STATUS.monthlyBudget - POOL_STATUS.usedThisMonth, 0);
+  const poolUsedPercent = Math.min(
+    Math.round((POOL_STATUS.usedThisMonth / POOL_STATUS.monthlyBudget) * 100),
+    100,
+  );
+
+  // Perkiraan jumlah sesi yang masih bisa disubsidi pada sebuah tier.
+  const remainingSessionsFor = (tier: SlidingScaleTier): number | null => {
+    const perSession = subsidyPerSession(tier);
+    return perSession > 0 ? Math.floor(poolRemaining / perSession) : null;
+  };
+
+  const handleChooseTier = (tier: SlidingScaleTier) => {
+    setWaitlistTierId(null);
+    if (tier.discountPercentage > 0) {
+      // Tier bersubsidi perlu bukti dahulu sebelum diterapkan.
+      setPendingTier(tier);
+      setProofFileName(null);
+      return;
+    }
+    setPendingTier(null);
+    onSelectTier(tier);
+    confetti({ particleCount: 40, spread: 60 });
+  };
+
+  const handleSubmitProof = () => {
+    if (!pendingTier || !proofFileName) return;
+    // Di produksi: kirim berkas ke API verifikasi, lalu terapkan setelah disetujui.
+    onSelectTier(pendingTier);
+    setPendingTier(null);
+    setProofFileName(null);
+    confetti({ particleCount: 60, spread: 70 });
   };
 
   const handleVerifyPartnerCode = () => {
     setPartnerError(null);
+    setPartnerVerified(null);
+    setPartnerRemainingQuota(null);
     const code = partnerCode.trim().toUpperCase();
-    if (verifiedPartnerCodes[code]) {
-      const match = verifiedPartnerCodes[code];
-      setPartnerVerified(match.campus);
+    const match = verifiedPartnerCodes[code];
 
-      // Create synthetic institutional tier
-      const customTier: SlidingScaleTier = {
-        id: `partner-${code}`,
-        tierName: `Mitra Institusi: ${match.campus.split(' ')[0]}`,
-        discountPercentage: match.subsidy,
-        targetAudience: `Mahasiswa & Penerima Grant ${match.campus}`,
-        description: match.desc,
-        requiredProof: 'Terverifikasi via Kode Resmi Kampus / CSR',
-        badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300 ring-2 ring-emerald-500/20',
-      };
-
-      onSelectTier(customTier);
-      confetti({
-        particleCount: 80,
-        spread: 80,
-        origin: { y: 0.6 },
-      });
-    } else {
-      setPartnerError('Kode institusi tidak ditemukan. Coba kode demo: KAMPUS-UI, ITB-CARE, UGM-PEDULI, CSR-TELKOM, atau GENZ-SEHAT.');
+    if (!match) {
+      setPartnerError(
+        'Kode institusi tidak ditemukan. Coba kode simulasi: KAMPUS-A, KAMPUS-B, CSR-PERUSAHAAN, GENZ-SEHAT, atau KAMPUS-PENUH.',
+      );
+      return;
     }
+
+    const remaining = match.monthlyQuota - match.usedThisMonth;
+    if (remaining <= 0) {
+      setPartnerError(
+        `Kuota bulan ini untuk ${match.campus} sudah habis. Kamu bisa masuk daftar tunggu, atau memakai tier subsidi lain di tab "Daftar Tier".`,
+      );
+      return;
+    }
+
+    setPartnerVerified(match.campus);
+    setPartnerRemainingQuota(remaining);
+
+    // Tier institusi sintetis
+    const customTier: SlidingScaleTier = {
+      id: `partner-${code}`,
+      tierName: `Mitra Institusi: ${match.campus.split(' ')[0]}`,
+      discountPercentage: match.subsidy,
+      targetAudience: `Mahasiswa & Penerima Grant ${match.campus}`,
+      description: match.desc,
+      requiredProof: 'Terverifikasi via Kode Resmi Kampus / CSR',
+      badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300 ring-2 ring-emerald-500/20',
+    };
+
+    onSelectTier(customTier);
+    confetti({ particleCount: 80, spread: 80, origin: { y: 0.6 } });
   };
 
   const handleRunAiAssessment = async () => {
@@ -104,14 +220,19 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
       const data = await res.json();
       setAiAssessmentResult(data);
 
-      // Auto-match tier
-      const matchedTier = slidingScaleTiers.find((t) => t.discountPercentage === data.subsidyPercent) || slidingScaleTiers[0];
-      onSelectTier(matchedTier);
+      // Cocokkan tier. Tier bersubsidi tetap perlu verifikasi dokumen.
+      const matchedTier =
+        slidingScaleTiers.find((t) => t.discountPercentage === data.subsidyPercent) ||
+        slidingScaleTiers[0];
 
-      confetti({
-        particleCount: 60,
-        spread: 70,
-      });
+      if (matchedTier.discountPercentage > 0) {
+        setPendingTier(matchedTier);
+        setProofFileName(null);
+      } else {
+        onSelectTier(matchedTier);
+      }
+
+      confetti({ particleCount: 60, spread: 70 });
     } catch (e) {
       console.error('Assessment error:', e);
     } finally {
@@ -121,7 +242,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-indigo-950/70 backdrop-blur-sm animate-in fade-in">
-      <div 
+      <div
         id="sliding-scale-modal-dialog"
         className="bg-white rounded-[36px] shadow-2xl border-2 border-indigo-50 w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden"
       >
@@ -136,13 +257,13 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                 Model Harga Sliding-Scale & Subsidi Silang
               </h2>
               <p className="text-xs text-indigo-200 mt-0.5">
-                Kesehatan mental berkeadilan: Bayar sesuai kemampuan finansial tanpa penurunan kualitas layanan.
+                Kesehatan mental berkeadilan: bayar sesuai kemampuan finansial tanpa penurunan kualitas layanan.
               </p>
             </div>
           </div>
-          <button 
+          <button
             id="close-sliding-scale-modal-btn"
-            onClick={onClose} 
+            onClick={onClose}
             className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center font-bold cursor-pointer"
           >
             <X className="w-5 h-5" />
@@ -150,10 +271,10 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-indigo-100 bg-[#F0F2FF] px-6 pt-3 gap-2">
+        <div className="flex border-b border-indigo-100 bg-[#F0F2FF] px-6 pt-3 gap-2 overflow-x-auto">
           <button
             onClick={() => setActiveTab('tiers')}
-            className={`px-5 py-3 text-xs font-bold border-b-2 transition-all cursor-pointer ${
+            className={`px-5 py-3 text-xs font-bold border-b-2 transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'tiers'
                 ? 'border-indigo-600 text-indigo-950 bg-white rounded-t-2xl shadow-xs'
                 : 'border-transparent text-indigo-800 hover:text-indigo-950'
@@ -163,7 +284,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
           </button>
           <button
             onClick={() => setActiveTab('assessment')}
-            className={`px-5 py-3 text-xs font-bold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-5 py-3 text-xs font-bold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
               activeTab === 'assessment'
                 ? 'border-indigo-600 text-indigo-950 bg-white rounded-t-2xl shadow-xs'
                 : 'border-transparent text-indigo-800 hover:text-indigo-950'
@@ -174,7 +295,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
           </button>
           <button
             onClick={() => setActiveTab('partner')}
-            className={`px-5 py-3 text-xs font-bold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-5 py-3 text-xs font-bold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
               activeTab === 'partner'
                 ? 'border-indigo-600 text-indigo-950 bg-white rounded-t-2xl shadow-xs'
                 : 'border-transparent text-indigo-800 hover:text-indigo-950'
@@ -190,20 +311,71 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
           {/* TAB 1: TIERS LIST */}
           {activeTab === 'tiers' && (
             <div className="space-y-5">
+              {/* Cara kerja */}
               <div className="p-4 bg-indigo-50 rounded-2xl border border-indigo-100 text-xs text-indigo-950 flex items-start gap-3">
                 <HeartHandshake className="w-5 h-5 text-indigo-600 shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-bold">Bagaimana Sistem Subsidi Silang Bekerja?</p>
+                  <p className="font-bold">Bagaimana sistem subsidi silang bekerja?</p>
                   <p className="text-indigo-900/80 mt-0.5 leading-relaxed font-medium">
-                    Pengguna berdaya beli stabil (Tier Standar / Patron) dan donatur CSR menyisihkan kontribusi untuk mensubsidi biaya konseling mahasiswa, pencari kerja, dan anak kos (Tier Beasiswa Jiwa) hingga <strong>85% - 100%</strong>.
+                    Harga sesi dihitung otomatis dari tarif dasar {rupiah(BASE_PRICE)} sesuai tier. Selisihnya
+                    ditutup <strong>pool subsidi silang</strong>, sehingga psikolog tetap menerima tarif penuh
+                    dikurangi komisi platform.
                   </p>
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {POOL_SOURCES.map((s) => (
+                      <span
+                        key={s}
+                        className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-white border border-indigo-100 text-indigo-900"
+                      >
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Status pool */}
+              <div className="p-4 bg-white rounded-2xl border-2 border-indigo-50 shadow-md shadow-indigo-100/40 space-y-3">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 text-xs font-bold text-indigo-950">
+                    <Wallet className="w-4 h-4 text-indigo-600" />
+                    <span>Kuota subsidi bulan ini</span>
+                  </div>
+                  <span className="text-[11px] font-bold text-indigo-700">
+                    {rupiah(poolRemaining)} tersisa dari {rupiah(POOL_STATUS.monthlyBudget)}
+                  </span>
+                </div>
+                <div className="h-2.5 rounded-full bg-indigo-50 overflow-hidden">
+                  <div
+                    className={`h-full rounded-full ${poolUsedPercent >= 90 ? 'bg-rose-500' : 'bg-indigo-600'}`}
+                    style={{ width: `${poolUsedPercent}%` }}
+                  />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] font-medium text-indigo-900">
+                  <div className="flex items-start gap-1.5 bg-[#F0F2FF] rounded-xl p-2.5">
+                    <ShieldCheck className="w-3.5 h-3.5 text-indigo-600 shrink-0 mt-0.5" />
+                    <span>Tier bersubsidi perlu verifikasi dokumen</span>
+                  </div>
+                  <div className="flex items-start gap-1.5 bg-[#F0F2FF] rounded-xl p-2.5">
+                    <Clock className="w-3.5 h-3.5 text-indigo-600 shrink-0 mt-0.5" />
+                    <span>
+                      Maksimal {SUBSIDIZED_SESSION_CAP_PER_SEMESTER} sesi bersubsidi per semester
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-1.5 bg-[#F0F2FF] rounded-xl p-2.5">
+                    <Wallet className="w-3.5 h-3.5 text-indigo-600 shrink-0 mt-0.5" />
+                    <span>Jika kuota habis, masuk daftar tunggu atau pilih tier lain</span>
+                  </div>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {slidingScaleTiers.map((tier) => {
                   const isActive = activeTier.id === tier.id;
-                  const estimatedPrice = Math.round(150000 * (1 - tier.discountPercentage / 100));
+                  const estimatedPrice = Math.round(BASE_PRICE * (1 - tier.discountPercentage / 100));
+                  const remaining = remainingSessionsFor(tier);
+                  const quotaFull = remaining !== null && remaining <= 0;
+                  const isWaitlisted = waitlistTierId === tier.id;
 
                   return (
                     <div
@@ -221,7 +393,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                             {tier.discountPercentage > 0
                               ? `Diskon ${tier.discountPercentage}%`
                               : tier.discountPercentage < 0
-                              ? `Patron +25% Donasi`
+                              ? `Patron +${Math.abs(tier.discountPercentage)}% Donasi`
                               : `Tarif Standar`}
                           </span>
                           {isActive && (
@@ -239,40 +411,124 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                           {tier.description}
                         </p>
 
+                        {tier.discountPercentage > 0 && (
+                          <p className="text-[11px] font-bold text-indigo-800 flex items-center gap-1.5">
+                            <FileCheck className="w-3.5 h-3.5 text-indigo-600" />
+                            Bukti: {tier.requiredProof}
+                          </p>
+                        )}
+
                         <div className="pt-2">
-                          <span className="text-[11px] text-indigo-400 uppercase font-bold tracking-wider block">Estimasi Biaya Konseling:</span>
+                          <span className="text-[11px] text-indigo-400 uppercase font-bold tracking-wider block">
+                            Estimasi Biaya Konseling:
+                          </span>
                           <div className="flex items-baseline gap-2 mt-0.5">
                             <span className="text-xl font-bold font-mono text-indigo-950">
-                              Rp {estimatedPrice.toLocaleString('id-ID')}
+                              {rupiah(estimatedPrice)}
                             </span>
-                            <span className="text-xs text-indigo-300 line-through font-mono">Rp 150.000</span>
+                            {tier.discountPercentage !== 0 && (
+                              <span className="text-xs text-indigo-300 line-through font-mono">
+                                {rupiah(BASE_PRICE)}
+                              </span>
+                            )}
                           </div>
+                          {remaining !== null && (
+                            <p
+                              className={`text-[11px] font-bold mt-1 ${
+                                quotaFull ? 'text-rose-600' : 'text-emerald-700'
+                              }`}
+                            >
+                              {quotaFull
+                                ? 'Kuota bulan ini habis'
+                                : `Sisa kuota bulan ini: sekitar ${remaining} sesi`}
+                            </p>
+                          )}
                         </div>
                       </div>
 
+                      {isWaitlisted && (
+                        <p className="mt-3 text-[11px] font-medium text-amber-900 bg-amber-50 border border-amber-200 rounded-2xl p-3">
+                          Kamu masuk daftar tunggu untuk tier ini. Kami akan memberi tahu saat kuota dibuka, atau
+                          kamu bisa memilih tier lain.
+                        </p>
+                      )}
+
                       <button
-                        onClick={() => {
-                          onSelectTier(tier);
-                          confetti({ particleCount: 40, spread: 60 });
-                        }}
-                        className={`mt-4 w-full py-3 rounded-2xl text-xs font-bold transition-all cursor-pointer ${
+                        onClick={() => (quotaFull ? setWaitlistTierId(tier.id) : handleChooseTier(tier))}
+                        disabled={isActive || isWaitlisted}
+                        className={`mt-4 w-full py-3 rounded-2xl text-xs font-bold transition-all ${
                           isActive
-                            ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200'
-                            : 'bg-[#F0F2FF] hover:bg-indigo-100 text-indigo-950 border border-indigo-100'
+                            ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200 cursor-default'
+                            : quotaFull
+                            ? 'bg-amber-100 hover:bg-amber-200 text-amber-950 border border-amber-300 cursor-pointer'
+                            : 'bg-[#F0F2FF] hover:bg-indigo-100 text-indigo-950 border border-indigo-100 cursor-pointer'
                         }`}
                       >
-                        {isActive ? 'Tier Aktif Kamu' : 'Pilih Tier Ini'}
+                        {isActive
+                          ? 'Tier Aktif Kamu'
+                          : isWaitlisted
+                          ? 'Sudah di Daftar Tunggu'
+                          : quotaFull
+                          ? 'Masuk Daftar Tunggu'
+                          : tier.discountPercentage > 0
+                          ? 'Pilih Tier & Verifikasi'
+                          : 'Pilih Tier Ini'}
                       </button>
                     </div>
                   );
                 })}
               </div>
 
+              {/* Panel verifikasi dokumen */}
+              {pendingTier && (
+                <div className="p-5 bg-white rounded-3xl border-2 border-indigo-300 shadow-lg shadow-indigo-100 space-y-3">
+                  <div className="flex items-center gap-2 text-sm font-bold text-indigo-950">
+                    <FileCheck className="w-5 h-5 text-indigo-600" />
+                    <span>Verifikasi untuk {pendingTier.tierName}</span>
+                  </div>
+                  <p className="text-xs text-indigo-900 font-medium leading-relaxed">
+                    Unggah bukti: <strong>{pendingTier.requiredProof}</strong>. Dokumen hanya dipakai untuk
+                    memastikan subsidi tepat sasaran dan tidak dibagikan ke psikolog. Subsidi dibatasi{' '}
+                    {SUBSIDIZED_SESSION_CAP_PER_SEMESTER} sesi per semester.
+                  </p>
+                  <input
+                    type="file"
+                    accept="image/*,.pdf"
+                    onChange={(e) => setProofFileName(e.target.files?.[0]?.name ?? null)}
+                    className="block w-full text-xs text-indigo-950 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#F0F2FF] file:text-indigo-950 hover:file:bg-indigo-100"
+                  />
+                  <div className="flex items-center justify-end gap-2">
+                    <button
+                      onClick={() => {
+                        setPendingTier(null);
+                        setProofFileName(null);
+                      }}
+                      className="px-4 py-2.5 rounded-2xl text-xs font-bold bg-[#F0F2FF] text-indigo-950 border border-indigo-100 cursor-pointer"
+                    >
+                      Batal
+                    </button>
+                    <button
+                      onClick={handleSubmitProof}
+                      disabled={!proofFileName}
+                      className={`px-5 py-2.5 rounded-2xl text-xs font-bold text-white shadow-md transition-all ${
+                        proofFileName
+                          ? 'bg-indigo-600 hover:bg-indigo-700 shadow-indigo-200 cursor-pointer'
+                          : 'bg-indigo-300 cursor-not-allowed'
+                      }`}
+                    >
+                      Kirim Bukti & Terapkan Tier
+                    </button>
+                  </div>
+                </div>
+              )}
+
               {/* Pay it forward button */}
               <div className="p-5 bg-amber-50/90 rounded-3xl border border-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <h4 className="text-xs font-bold text-amber-950">Ingin Membantu Sesama Teman Gen Z?</h4>
-                  <p className="text-xs text-amber-900/80 font-medium mt-0.5">Donasikan sedikit rezeki ke pool dana Beasiswa Jiwa.</p>
+                  <p className="text-xs text-amber-900/80 font-medium mt-0.5">
+                    Donasikan sedikit rezeki ke pool dana Beasiswa Jiwa agar kuota subsidi bulan depan lebih besar.
+                  </p>
                 </div>
                 <button
                   onClick={() => {
@@ -295,7 +551,8 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                   Kalkulator & Rekomendasi Subsidi AI Souls Care
                 </h3>
                 <p className="text-xs font-bold text-indigo-400 mt-0.5">
-                  AI kami akan menganalisis profil dan kondisi finansialmu untuk merekomendasikan tier subsidi silang yang paling berkeadilan.
+                  AI menganalisis profil dan kondisi finansialmu untuk merekomendasikan tier yang paling berkeadilan.
+                  Hasilnya berupa rekomendasi, subsidi baru berlaku setelah dokumen terverifikasi.
                 </p>
               </div>
 
@@ -316,7 +573,9 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-indigo-950 block mb-1.5">Rentang Penghasilan / Uang Saku Bulanan:</label>
+                  <label className="text-xs font-bold text-indigo-950 block mb-1.5">
+                    Rentang Penghasilan / Uang Saku Bulanan:
+                  </label>
                   <select
                     value={incomeRange}
                     onChange={(e) => setIncomeRange(e.target.value)}
@@ -331,7 +590,9 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
               </div>
 
               <div>
-                <label className="text-xs font-bold text-indigo-950 block mb-1.5">Kondisi Tempat Tinggal / Biaya Hidup:</label>
+                <label className="text-xs font-bold text-indigo-950 block mb-1.5">
+                  Kondisi Tempat Tinggal / Biaya Hidup:
+                </label>
                 <select
                   value={livingCondition}
                   onChange={(e) => setLivingCondition(e.target.value)}
@@ -345,7 +606,9 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
               </div>
 
               <div>
-                <label className="text-xs font-bold text-indigo-950 block mb-1.5">Catatan Beban Finansial / Cerita Tambahan:</label>
+                <label className="text-xs font-bold text-indigo-950 block mb-1.5">
+                  Catatan Beban Finansial / Cerita Tambahan:
+                </label>
                 <textarea
                   value={financialNote}
                   onChange={(e) => setFinancialNote(e.target.value)}
@@ -374,7 +637,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                       Hasil Rekomendasi Evaluasi AI:
                     </span>
                     <span className="text-xs font-bold px-3 py-1 bg-indigo-600 text-white rounded-full shadow-xs">
-                      Subsidi {aiAssessmentResult.subsidyPercent}% Disetujui
+                      Rekomendasi Subsidi {aiAssessmentResult.subsidyPercent}%
                     </span>
                   </div>
                   <h4 className="text-base font-bold text-indigo-950">{aiAssessmentResult.tier}</h4>
@@ -385,6 +648,14 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                       Rp {aiAssessmentResult.recommendedPricePerSession?.toLocaleString('id-ID')}
                     </span>
                   </div>
+                  {pendingTier && (
+                    <button
+                      onClick={() => setActiveTab('tiers')}
+                      className="w-full py-2.5 rounded-2xl text-xs font-bold bg-white text-indigo-950 border border-indigo-200 hover:bg-indigo-50 cursor-pointer"
+                    >
+                      Lanjut ke Verifikasi Dokumen
+                    </button>
+                  )}
                 </div>
               )}
             </div>
@@ -398,7 +669,9 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                 <div>
                   <h3 className="font-bold text-indigo-950 text-sm">Program Kemitraan Kampus & Beasiswa CSR</h3>
                   <p className="text-xs text-indigo-900 font-medium mt-1 leading-relaxed">
-                    Jika universitas, BEM, atau perusahaan tempatmu bekerja bermitra dengan Souls Care, masukkan kode kemitraan untuk membuka <strong>100% Voucher Konseling Gratis</strong>.
+                    Jika kampus atau perusahaanmu bermitra dengan Souls Care, masukkan kode kemitraan untuk membuka
+                    konseling bersubsidi penuh. Dana berasal dari kontribusi institusi mitra, dengan{' '}
+                    <strong>kuota sesi bulanan</strong> untuk setiap mitra agar sistem tetap berkelanjutan.
                   </p>
                 </div>
               </div>
@@ -412,7 +685,7 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                     type="text"
                     value={partnerCode}
                     onChange={(e) => setPartnerCode(e.target.value)}
-                    placeholder="Contoh: KAMPUS-UI, ITB-CARE, UGM-PEDULI, CSR-TELKOM"
+                    placeholder="Contoh simulasi: KAMPUS-A, KAMPUS-B, CSR-PERUSAHAAN"
                     className="flex-1 bg-[#F0F2FF] rounded-2xl px-4 py-3 text-xs font-bold text-indigo-950 border-2 border-indigo-100 uppercase font-mono tracking-wider focus:outline-hidden focus:border-indigo-500"
                   />
                   <button
@@ -436,34 +709,43 @@ export const SlidingScaleModal: React.FC<SlidingScaleModalProps> = ({
                       <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                       <span>Kemitraan Terverifikasi: {partnerVerified}</span>
                     </div>
-                    <p>Selamat! Hak subsidi beasiswa 100% konseling telah otomatis diaplikasikan ke akunmu.</p>
+                    <p>
+                      Hak subsidi konseling telah diterapkan ke akunmu. Sisa kuota mitra bulan ini:{' '}
+                      <strong>{partnerRemainingQuota} sesi</strong>. Subsidi dibatasi{' '}
+                      {SUBSIDIZED_SESSION_CAP_PER_SEMESTER} sesi per pengguna per semester.
+                    </p>
                   </div>
                 )}
               </div>
 
-              {/* Demo Sample Partner Codes for quick testing */}
+              {/* Kode simulasi dengan sisa kuota */}
               <div className="space-y-2">
                 <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider block">
-                  Kode Institusi Aktif (Klik untuk coba):
+                  Kode Simulasi (klik untuk coba):
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {Object.entries(verifiedPartnerCodes).map(([code, info]) => (
-                    <button
-                      key={code}
-                      onClick={() => {
-                        setPartnerCode(code);
-                      }}
-                      className="p-3.5 rounded-2xl border-2 border-indigo-50 hover:border-indigo-400 bg-[#F0F2FF]/60 hover:bg-white text-left transition-all cursor-pointer"
-                    >
-                      <div className="flex items-center justify-between text-xs font-bold text-indigo-950">
-                        <span className="font-mono text-indigo-600">{code}</span>
-                        <span className="text-[11px] text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full font-bold">
-                          Cover {info.subsidy}%
-                        </span>
-                      </div>
-                      <p className="text-xs text-indigo-400 font-medium mt-0.5 truncate">{info.campus}</p>
-                    </button>
-                  ))}
+                  {Object.entries(verifiedPartnerCodes).map(([code, info]) => {
+                    const remaining = info.monthlyQuota - info.usedThisMonth;
+                    return (
+                      <button
+                        key={code}
+                        onClick={() => setPartnerCode(code)}
+                        className="p-3.5 rounded-2xl border-2 border-indigo-50 hover:border-indigo-400 bg-[#F0F2FF]/60 hover:bg-white text-left transition-all cursor-pointer"
+                      >
+                        <div className="flex items-center justify-between text-xs font-bold text-indigo-950">
+                          <span className="font-mono text-indigo-600">{code}</span>
+                          <span
+                            className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
+                              remaining > 0 ? 'text-emerald-800 bg-emerald-100' : 'text-rose-800 bg-rose-100'
+                            }`}
+                          >
+                            {remaining > 0 ? `Cover ${info.subsidy}% · sisa ${remaining} sesi` : 'Kuota habis'}
+                          </span>
+                        </div>
+                        <p className="text-xs text-indigo-400 font-medium mt-0.5 truncate">{info.campus}</p>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
